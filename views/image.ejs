@@ -1,0 +1,544 @@
+<% include includes/head.ejs %>
+  <!-- DataTables -->
+
+  <div class="wrapper">
+
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div> -->
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="index3.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <i class="fas fa-search"></i>
+          </a>
+          <div class="navbar-search-block">
+            <form class="form-inline">
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+
+        <!-- Messages Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-comments"></i>
+            <span class="badge badge-danger navbar-badge">3</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <img src="../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Brad Diesel
+                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">Call me whenever you can...</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <img src="../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    John Pierce
+                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">I got your message bro</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <img src="../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Nora Silvester
+                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">The subject goes here</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          </div>
+        </li>
+        <!-- Notifications Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-warning navbar-badge">15</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">15 Notifications</span>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-envelope mr-2"></i> 4 new messages
+              <span class="float-right text-muted text-sm">3 mins</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-users mr-2"></i> 8 friend requests
+              <span class="float-right text-muted text-sm">12 hours</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> 3 new reports
+              <span class="float-right text-muted text-sm">2 days</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+
+
+    <%- include('includes/side.ejs', {user: user.role}); %>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Hình ảnh</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-modal-xl">Thêm
+                    mới</button>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Danh sách Hình ảnh</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <!-- <th>ID</th> -->
+                          <th>Dự án</th>
+                          <th>Toà</th>
+                          <th>Căn hộ</th>
+                          <th>Hình ảnh</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% data.forEach(item=> { %>
+                          <tr>
+                            <td>
+                              <%= item.project.project_name %>
+                            </td>
+                            <td>
+                              <%= item.building.building_name %>
+                            </td>
+                            <td>
+                              <%= item.apartment.apartment_name %>
+                            </td>
+                            <td>
+                              <% item.image_link.forEach((element,index)=> { %>
+                                <div class="img-wrap" ">
+                                  <span class=" close">&times;</span>
+                                  <img src="<%= element %>" style="width: 50px; height: 50px;" data-index="<%= index %>"
+                                    data-id="<%=item._id %>" />
+                                </div>
+                                <% }) %>
+                            </td>
+                            <td class="project-actions text-right">
+                              <a class="btn btn-info btn-sm" data-toggle="modal"
+                                data-target="#edit-modal-xl-<%= item._id %>">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Sửa
+                              </a>
+                              <a class="btn btn-danger btn-sm" onclick="clickDelete('<%= item._id %>')">
+                                <i class="fas fa-trash">
+                                </i>
+                                Xóa
+                              </a>
+                              <!-- <input id="upload" type="file" multiple data-id="<%= item._id %> "/>
+                              <a id="upload_link-<%= item._id %>"  class="btn btn-warning btn-sm" style="color: white;" onclick="addImage('<%= item._id %>')">
+                                <i class="fa-regular fa-images"></i>
+                                </i>
+                                Thêm ảnh
+                              </a> -->
+                              <label class="btn btn-warning btn-sm" style="color: white; margin-top: 8px;">
+                                <input id="upload-<%= item._id %>" multiple type="file" style="display: none;"
+                                  onchange="addImage('<%= item._id %>')" />
+                                <span style="font-weight: 500;">Thêm ảnh</span>
+                              </label>
+                              <a class="btn btn-secondary btn-sm" data-toggle="modal"
+                                data-target="#view-image-<%= item._id %>" data-image="<%= item._id %>"
+                                style="color: white;">
+                                <i class="fa-regular fa-images"></i>
+                                </i>
+                                Xem
+                              </a>
+                            </td>
+                          </tr>
+                          <div class="modal fade" id="edit-modal-xl-<%= item._id %>">
+                            <div class="modal-dialog modal-xl">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Sửa tên Hình ảnh</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- /.card-header -->
+                                  <!-- form start -->
+                                  <form>
+                                    <div class="card-body">
+                                      <div class="form-group">
+                                        <label>Dự án</label>
+                                        <select class="custom-select" id="selectProjectEdit-<%= item.id %>">
+                                          <% dataProject.forEach(element=> {%>
+                                            <option value="<%= element._id %>">
+                                              <%=item.project.project_name==element.project_name ? 'selected' : '' %>>
+                                                <%= element.project_name %>
+                                            </option>
+                                            <%}) %>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Toà nhà</label>
+                                        <select class="custom-select" id="selectBuildingEdit-<%= item.id %>">
+                                          <% dataBuilding.forEach(element=> {%>
+                                            <option value="<%= element._id %>"></option>
+                                            <%=item.building.building_name==element.building_name ? 'selected' : '' %>
+                                              ><%= element.building_name %>
+                                                </option>
+                                                <%}) %>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Căn hộ</label>
+                                        <select class="custom-select" id="selectApartmentEdit-<%= item.id %>">
+                                          <% dataApartment.forEach(element=> {%>
+                                            <option value="<%= element._id %>"></option>
+                                            <%=item.apartment.apartment_name==element.apartment_name ? 'selected' : ''
+                                              %>><%= element.apartment_name %>
+                                                </option>
+                                                <%}) %>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                  </form>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary"
+                                    onclick="clickEdit('<%= item._id %>')">Lưu</button>
+                                </div>
+
+                              </div>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                          </div>
+                          <div class="modal fade" id="view-image-<%= item._id %>">
+                            <div class="modal-dialog modal-xl role=" document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Hình ảnh</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body" id="imageDelete">
+                                  <p id="modal_body"></p>
+                                  <% item.image_link.forEach((element,i)=> { %>
+
+                                    <img src="<%= element %>" style="margin-left; <%= i==0 ? 0 : 100 %>px; width: 350px; height: 250px;" data-index="<%=i%>" data-id="<%=item._id%>">
+
+                                          <% } ) %>
+                                            <!-- Wrapper for slides -->
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <% }) %>
+                      </tbody>
+
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <div class="modal fade" id="create-modal-xl">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Tạo mới Hình ảnh</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Dự án</label>
+                      <select class="custom-select" id="selectProject">
+                        <% dataProject.forEach(item=> {%>
+                          <option value="<%= item._id %>">
+                            <%= item.project_name %>
+                          </option>
+                          <%}) %>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Toà nhà</label>
+                      <select class="custom-select" id="selectBuilding">
+                        <% dataBuilding.forEach(item=> {%>
+                          <option value="<%= item._id %>">
+                            <%= item.building_name %>
+                          </option>
+                          <%}) %>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Căn hộ</label>
+                      <select class="custom-select" id="selectApartment">
+                        <% dataApartment.forEach(item=> {%>
+                          <option value="<%= item._id %>">
+                            <%= item.apartment_name %>
+                          </option>
+                          <%}) %>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </form>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                  onclick="javascript:window.location.reload()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="onClick()">Lưu</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+
+        <!-- /.content -->
+
+      </div>
+
+      <% include includes/foot.ejs %>
+        <!-- DataTables  & Plugins -->
+        <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="../plugins/jszip/jszip.min.js"></script>
+        <script src="../plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="../plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+        <script src="../../plugins/toastr/toastr.min.js"></script>
+        <script>
+          $(function () {
+            $('#example1').DataTable({
+              "paging": true,
+              "lengthChange": false,
+              "searching": true,
+              "ordering": true,
+              "info": true,
+              "autoWidth": false,
+              "responsive": true,
+            });
+
+            var Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          });
+
+          const onClick = () => {
+            // var image = document.getElementById('file').files
+            var project = document.getElementById('selectProject').value
+            var building = document.getElementById('selectBuilding').value
+            var apartment = document.getElementById('selectApartment').value
+            var formData = new FormData()
+            // for (var i = 0; i < image.length; i++) {
+            //   formData.append('image', image[i])
+            // }
+            formData.append('project', project)
+            formData.append('building', building)
+            formData.append('apartment', apartment)
+            axios.post("image/create", formData,
+              { 'content-type': 'multipart/form-data' }).then((res) => {
+                // toastr.success(response.data.message)
+                // do whatever you want if console is [object object] then stringify the response
+                // toastr.success(res.data.message)
+                $("[data-dismiss=modal]").trigger({ type: "click" });
+                location.reload()
+              }).catch(err => toastr.warning(err.response.data.message))
+
+          }
+
+          const clickDelete = (id) => {
+            axios.post('image/delete', { id: id }).then(res => {
+              $("[data-dismiss=modal]").trigger({ type: "click" });
+              location.reload()
+            })
+              .catch(err => console.log(err))
+          }
+
+          const clickEdit = (id) => {
+            var status_name = document.getElementById(`inputAxisEdit-${id}`).value
+            var id = id
+            axios.post('status/edit', {
+              id: id,
+              status_name: status_name
+            }).then(req => {
+              $("[data-dismiss=modal]").trigger({ type: "click" });
+              location.reload()
+            }).catch(e => toastr.warning(e.response.data.message))
+          }
+          var image = []
+
+          var loadFile = function (event) {
+            for (let i = 0; i < event.target.files.length; i++) {
+              var image = document.createElement('img');
+              image.src = URL.createObjectURL(event.target.files[i]);
+              image.id = "output";
+              image.width = "150";
+              image.height = "150"
+              document.querySelector(".cont").appendChild(image);
+            }
+          };
+          $('.img-wrap .close').on('click', function () {
+            var index = $(this).closest('.img-wrap').find('img').data('index');
+
+            var id = $(this).closest('.img-wrap').find('img').data('id');
+
+            deleteImage(id, index)
+          });
+          const deleteImage = (id, index) => {
+            axios.post('image/deleteImage', {
+              id: id,
+              index: index
+            }).then(res => {
+              location.reload()
+            }).catch(e => console.log(e))
+          }
+          //testSubmit
+          $("#testSubmit").click(function () {
+            console.log(($("#testSubmit").data('image')))
+          });
+
+          $(function () {
+            $("#upload_link").on('click', function (e) {
+              console.log(e)
+              e.preventDefault();
+              $("#upload:hidden").trigger('click');
+
+            });
+          });
+          const addImage = (id) => {
+            var image = document.getElementById(`upload-${id}`).files
+            var formData = new FormData()
+            formData.append('id', id)
+            for (var i = 0; i < image.length; i++) {
+              formData.append('image', image[i])
+            }
+            axios.post('image/addImage', formData, { 'content-type': 'multipart/form-data' }).then(res => location.reload()).catch(e => console.log(e))
+          }
+        </script>
+        </body>
+
+        </html>

@@ -1,0 +1,130 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <!-- SidebarSearch Form -->
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <% if(user == 'admin' | user == 'manager'){ %>
+            <% if(user == 'manager') {null}else{ %>
+              <li class="nav-item">
+                <a href="/employee" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Người dùng
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/employee" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Nhân viên</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/user" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tài khoản</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/employmentStatus" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tình trạng cộng việc</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <% } %>
+            <li class="nav-item">
+              <a href="/" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Sale
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <!-- <li class="nav-item">
+                  <a href="/owner" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Chủ căn hộ</p>
+                  </a>
+                </li> -->
+                <li class="nav-item">
+                  <a href="/project" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Dự án</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/investor" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Chủ đầu tư</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/axis" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trục căn hộ</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/building" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Toà</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/utility" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tiện ích</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/balconyDirection" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Hướng ban công</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/property" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Loại BDS</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/status" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trạng thái</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          <%} else {null} %>
+        
+          <li class="nav-item">
+            <a href="/image" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Hình ảnh
+              </p>
+            </a>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

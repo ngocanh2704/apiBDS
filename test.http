@@ -1,0 +1,16 @@
+GET  http://localhost:3001/employee
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmFiNDRiNjg2NGIyYTliYTA5OTMxYTgiLCJ1c2VybmFtZSI6Im5ha2luZyIsInBhc3N3b3JkIjoiJDJiJDEwJEgvVWV0OHIxeWtOTlN4MGJMVHV2Yy50T05FcUpXcHJ6NjJWLzVxYTk0YWxjY0R3SjlScFplIiwiZW1wbG95ZWVfSUQiOiI2NjliZjM3YzQyNWI0NWQzNWE3ZjFmZmIiLCJzdGF0dXMiOnRydWUsInJvbGUiOiJhZG1pbiIsImlzRGVsZXRlIjpmYWxzZSwiY3JlYXRlQXQiOiIyMDI0LTA4LTAxVDA4OjE3OjU4Ljc2N1oiLCJfX3YiOjAsImlhdCI6MTcyMzA1NTkxMSwiZXhwIjoxNzIzMTQyMzExfQ.azGw7-sC73ybqSxtJV4rnLK2NCrz4cDbpHNiIA3UBM0
+
+####
+
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "username": "naking",
+    "password": "Na27041994@"
+}
+
+###
+POST http://localhost:3001/login/token
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmFiNDRiNjg2NGIyYTliYTA5OTMxYTgiLCJ1c2VybmFtZSI6Im5ha2luZyIsImlhdCI6MTcyMzA1ODc0MCwiZXhwIjoxNzIzMDYyMzQwfQ.-rcW03ee4C7vjJFpX-VTiSNO7k2MNLWKWbalSEq9Luo

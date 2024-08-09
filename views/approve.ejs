@@ -1,0 +1,932 @@
+<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+<% include includes/head.ejs %>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+      <!-- Preloader -->
+      <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+      </div>
+
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+          <!-- Navbar Search -->
+          <li class="nav-item">
+            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+              <i class="fas fa-search"></i>
+            </a>
+            <div class="navbar-search-block">
+              <form class="form-inline">
+                <div class="input-group input-group-sm">
+                  <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                    aria-label="Search">
+                  <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+
+          <!-- Messages Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-comments"></i>
+              <span class="badge badge-danger navbar-badge">3</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Brad Diesel
+                      <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">Call me whenever you can...</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      John Pierce
+                      <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">I got your message bro</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Nora Silvester
+                      <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">The subject goes here</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+            </div>
+          </li>
+          <!-- Notifications Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <span class="badge badge-warning navbar-badge">15</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">15 Notifications</span>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+              <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+              <i class="fas fa-th-large"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+
+      <%- include('includes/side.ejs', {user: user.role}); %>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-modal-xl">Thêm mới</button>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+
+          <!-- /.card-header -->
+          <div class="card card-primary card-tabs">
+            <h1 class="m-0">Data Nguồn</h1>
+            
+            <div class="card-header p-0 pt-1">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-home-tab"
+                    href="/" role="tab" aria-controls="custom-tabs-one-home"
+                    aria-selected="false">Tất cả</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-profile-tab"
+                    href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
+                    aria-selected="false">Của tôi</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-messages-tab"
+                    href="/khosale" role="tab" aria-controls="custom-tabs-one-messages"
+                    aria-selected="false">Kho bán</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-settings-tab"
+                    href="/khoretal" role="tab" aria-controls="custom-tabs-one-settings"
+                    aria-selected="false">Kho cho thuê</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-settings-tab-thue"
+                    href="#custom-tabs-one-settings-thue" role="tab" aria-controls="custom-tabs-one-settings-thue"
+                    aria-selected="false">Hạn cho thuê</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-settings-tab"
+                    href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+                    aria-selected="false">Hẹn khách</a>
+                </li>
+                <% if(user.role == 'admin' | user.role == 'manager'){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-one-settings-tab"
+                      href="/request" role="tab" aria-controls="custom-tabs-one-settings-phone"
+                      aria-selected="false">Duyệt yêu cầu số điện thoại</a>
+                  </li>
+                <% } %>
+                <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-one-settings-tab-approve"
+                      href="/approve" role="tab" aria-controls="custom-tabs-one-settings-tab-approve"
+                      aria-selected="true">Yêu cầu số điện thoại</a>
+                  </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-one-settings-tab-approve">
+                <div class="tab-pane fade active show" id="custom-tabs-one-settings-tab-approve" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-settings-tab-approve">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">TT</th>
+                        <th style="width: 10px">Căn hộ</th>
+                        <th>Số điện thoại</th>
+                        <th>Chủ nhà</th>
+                        <th style="width: 100px">Cập nhật</th>
+                        <th>Giá bán</th>
+                        <th>Giá cho thuê</th>
+                        <th>Thông tin bds</th>
+                        <th>Yêu cầu</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% dataApprove.forEach((item,index) => { %> 
+                        <tr>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                ">
+                
+                <%=index+1%>
+                </td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.apartment_name%>x<%=item.axis.axis_name%></td>
+                <td style="
+                text-align: center;
+                vertical-align: middle;
+                align-items: center;
+            "><%= item.phone_number %></td>
+                <td style="
+                text-align: center;
+                vertical-align: middle;
+                align-items: center;
+            "><%= item.owner %></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.last_updated%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.sale_price%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.rental_price%></td>
+                          <td>
+                            - <%=item.area%>m<sup>2</sup> - <%=item.project.project_name%> - <%=item.balcony_direction.balcony_direction_name%> - <%=item.bedrooms%>PN</br>
+                            - <%=item.notes%> </br>
+                            - Nội thất: <%= (item.furnished == true) ? 'Nội thất cơ bản': 'Full nội thất' %>
+                          </td>
+                          <td >
+                            <%if(item.isRequest == false ) {%>
+                              <a class="btn btn-primary btn-sm" >Yêu cầu</a> 
+                            <%}%>
+                            <%if(item.isRequest == true ) {%>
+                                <%if(item.isApprove == false) { %>
+                                    <a class="btn btn-warning btn-sm" onclick="onSendApprove('<%= item._id %>')">Xác nhận</a> 
+                                <%}%>
+                              <%}%>
+                            <%if(user.role == 'admin' | user.role == 'manager' ) {  %>
+                              <a class="btn btn-info btn-sm" data-toggle="modal"
+                              data-target="#edit-modal-xl-<%= item._id %>">
+                              Sửa
+                            </a>
+                            <a class="btn btn-danger btn-sm" onclick="clickDelete('<%= item._id %>')">
+                              Xóa
+                            </a>
+                         <%   }%>
+                           
+                          </td>
+                        <td style="align-items: center;">
+                  <input type="checkbox" class="form-check-input" style="float: left;margin: 0 auto;"/>
+                        </td>
+                        </tr>
+                        <div class="modal fade" id="edit-modal-xl-<%= item._id %>">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Sửa thông tin căn hộ</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <!-- /.card-header -->
+                                  <!-- form start -->
+                                  <form>
+                                    <div class="card-body">
+                                      <div class="form-group">
+                                        <label>Dự án</label>
+                                        <select class="custom-select" id="selectProject-<%=item._id%>">
+                                          <% dataProject.forEach(element => { %>
+                                              <option value="<%= element._id %>" <%=item.project.project_name == element.project_name ? 'selected': ''  %> >
+                                                <%= element.project_name %>
+                                              </option>
+                                          <% }) %>
+                                        </select>
+                                        </div>
+                                      <div class="form-group">
+                                        <label for="inputApartmentName">Tên căn hộ</label>
+                                        <input type="text" class="form-control" id="inputApartmentName-<%=item._id%>" value="<%=item.apartment_name%>" placeholder="Tên căn hộ">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Trục căn hộ</label>
+                                        <select class="custom-select" id="selectAxis-<%=item._id%>">
+                                          <% dataAxis.forEach(element => { %>
+                                              <option value="<%= element._id %>" <%=item.axis.axis_name == element.axis_name ? 'selected' : '' %> >
+                                                <%= element.axis_name %>
+                                              </option>
+                                          <% }) %>
+                                        </select>
+                                        </div>
+                                      <div class="form-group">
+                                        <label for="inputOwner">Chủ căn hộ</label>
+                                        <input type="text" class="form-control" id="inputOwner-<%=item._id%>" value="<%=item.owner%>" placeholder="Tên chủ căn hộ">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputPhonNumber">Số điện thoại</label>
+                                        <input type="text" class="form-control" id="inputPhonNumber-<%=item._id%>"  value="<%=item.phone_number%>" placeholder="Số điện thoại">
+                                      </div>
+                                    <div class="form-group">
+                                        <label>Loại bất động sản</label>
+                                        <select class="custom-select" id="selectProperty-<%=item._id%>">
+                                          <% dataProperty.forEach(element => { %>
+                                              <option value="<%= element._id %>" <%=item.property.property_name == element.property_name ? 'selected' : '' %> >
+                                                <%= element.property_name %>
+                                              </option>
+                                          <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputFloor">Tầng</label>
+                                        <input type="number" class="form-control" id="inputFloor-<%=item._id%>" value="<%=item.floor%>" placeholder="Tầng">
+                                      </div>
+                                    <div class="form-group">
+                                        <label for="inputArea">Diện tích</label>
+                                        <input type="number" class="form-control" id="inputArea-<%=item._id%>" value="<%=item.area%>" placeholder="Diện tích">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputBedrooms">Số phòng ngủ</label>
+                                        <input type="text" class="form-control" id="inputBedrooms-<%=item._id%>" value="<%=item.bedrooms%>" placeholder="Số phòng ngủ">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputBathrooms">Số phòng vệ sinh</label>
+                                        <input type="text" class="form-control" id="inputBathrooms-<%=item._id%>" value="<%=item.bathrooms%>" placeholder="Số phòng vệ sinh">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputSalePrice">Giá bán</label>
+                                        <input type="text" pattern="[0-9.,]+" required data-type="number" value="<%=item.sale_price %>" class="form-control format-number" id="inputSalePrice-<%=item._id%>" data-id="<%=item._id%>" placeholder="Giá bán">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputRentalPrice">Giá cho thuê</label>
+                                        <input type="text" pattern="[0-9.,]+" onchange="onChange('<%=item._id%>')" required data-type="number" class="form-control format-number" value="<%=item.rental_price %>" id="inputRentalPrice-<%=item._id%>" placeholder="Giá cho thuê">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputAvailableFrom">Cho thuê từ ngày</label>
+                                        <input type="date" class="form-control" id="inputAvailableFrom-<%=item._id%>" value="<%=item.available_from%>" placeholder="Cho thuê từ ngày">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputAvailableUntil">Cho thuê đến ngày</label>
+                                        <input type="date" class="form-control" id="inputAvailableUntil-<%=item._id%>" value="<%=item.available_until%>" placeholder="Cho thuê đến ngày">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Nội thất</label>
+                                        <select class="custom-select" id="selectFurnished-<%=item._id%>">
+                                              <option value="true" <%=item.furnished == true ? 'selected' : ''%>>
+                                                Nội thất cơ bản
+                                              </option>
+                                              <option value="false"  <%=item.furnished == false ? 'selected' : ''%>>Full nội thất</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputBalconies">Số ban công</label>
+                                        <input type="number" class="form-control" id="inputBalconies-<%=item._id%>" value="<%=item.balconies%>" placeholder="Số ban công">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Hướng ban công</label>
+                                        <select class="custom-select" id="selectBalconyDirection-<%=item._id%>">
+                                            <% dataBalconyDirection.forEach(element => { %>
+                                              <option value="<%= element._id  %>" <%=item.balcony_direction.balcony_direction_name == element.balcony_direction_name ? 'selected' : '' %>>
+                                                <%= element.balcony_direction_name %>
+                                              </option>
+                                           <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUpdate">Thời gian cập nhật căn hộ</label>
+                                        <input type="date" class="form-control" id="inputUpdate-<%=item._id%>" value="<%=item.last_updated%>" placeholder="Số ban công">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Trạng thái</label>
+                                        <select class="custom-select" id="selectStatus-<%=item._id%>">
+                                            <% dataStatus.forEach(element => { %>
+                                                <option value="<%= element._id %>" <%=item.status.status_name == element.status_name ? 'selected' : ''%>><%= element.status_name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ghi chú</label>
+                                        <textarea type="text" class="form-control" id="inputNote-<%=item._id%>"  placeholder="Enter...."><%= item.notes%></textarea>
+                                    </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                  </form>
+                                
+                            </div>
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="clickEdit('<%= item._id %>')">Lưu</button>
+                              </div>
+    
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
+                        <% }) %>
+                    
+                      </tbody>
+                  </table>
+
+                  <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      <li class="page-item"><a class="page-link" href="#">«</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    </ul>
+                  </div>
+                </div>
+              
+                <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-profile-tab">
+                 
+ddasasd
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-messages-tab">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">TT</th>
+                        <th style="width: 10px">Căn hộ</th>
+                        <th style="width: 100px">Cập nhật</th>
+                        <th>Giá bán</th>
+                        <th>Giá cho thuê</th>
+                        <th>Thông tin bds</th>
+                        <th>Yêu cầu</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% dataSale.forEach((item,index) => { %> 
+                        <tr>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=index+1%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.apartment_name%>x<%=item.axis.axis_name%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.last_updated%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.sale_price%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.rental_price%></td>
+                          <td>
+                            - <%=item.area%>m<sup>2</sup> - <%=item.project.project_name%> - <%=item.balcony_direction.balcony_direction_name%> - <%=item.bedrooms%>PN</br>
+                            - <%=item.notes%> </br>
+                            - Nội thất: <%= (item.furnished == true) ? 'Nội thất cơ bản': 'Full nội thất' %>
+                          </td>
+                          <td >
+                            <a class="btn btn-primary btn-sm" >
+                              Yêu cầu
+                            </a>
+                          </td>
+                        
+                        </tr>
+                        <% }) %>
+                    
+                      </tbody>
+                  </table>
+
+                  <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      <li class="page-item"><a class="page-link" href="#">«</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-settings-tab">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">TT</th>
+                        <th style="width: 10px">Căn hộ</th>
+                        <th style="width: 100px">Cập nhật</th>
+                        <th>Giá bán</th>
+                        <th>Giá cho thuê</th>
+                        <th>Thông tin bds</th>
+                        <th>Yêu cầu</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% dataRental.forEach((item,index) => { %> 
+                        <tr>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=index+1%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.apartment_name%>x<%=item.axis.axis_name%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.last_updated%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.sale_price%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.rental_price%></td>
+                          <td>
+                            - <%=item.area%>m<sup>2</sup> - <%=item.project.project_name%> - <%=item.balcony_direction.balcony_direction_name%> - <%=item.bedrooms%>PN</br>
+                            - <%=item.notes%> </br>
+                            - Nội thất: <%= (item.furnished == true) ? 'Nội thất cơ bản': 'Full nội thất' %>
+                          </td>
+                          <td >
+                            <a class="btn btn-primary btn-sm" >Yêu cầu</a> 
+                        
+                        </tr>
+                        <% }) %>
+                    
+                      </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-settings-tab-request" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-settings-tab-request">
+                  
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-settings-phone" role="tabpanel"
+                  aria-labelledby="custom-tabs-one-settings-tab-phone">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">TT</th>
+                        <th style="width: 10px">Căn hộ</th>
+                        <th>Số điện thoại</th>
+                        <th>Tên chủ căn hộ</th>
+                        <th style="width: 100px">Cập nhật</th>
+                        <th>Giá bán</th>
+                        <th>Giá cho thuê</th>
+                        <th>Thông tin bds</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% dataApprove.forEach((item,index) => { %> 
+                        <tr>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=index+1%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.apartment_name%>x<%=item.axis.axis_name%></td>
+                <td style="
+                text-align: center;
+                vertical-align: middle;
+                align-items: center;
+            "><%=item.phone_number%></td>
+            <td style="
+            text-align: center;
+            vertical-align: middle;
+            align-items: center;
+        "><%=item.owner%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.last_updated%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.sale_price%></td>
+                          <td style="
+                    text-align: center;
+                    vertical-align: middle;
+                    align-items: center;
+                "><%=item.rental_price%></td>
+                          <td>
+                            - <%=item.area%>m<sup>2</sup> - <%=item.project.project_name%> - <%=item.balcony_direction.balcony_direction_name%> - <%=item.bedrooms%>PN</br>
+                            - <%=item.notes%> </br>
+                            - Nội thất: <%= (item.furnished == true) ? 'Nội thất cơ bản': 'Full nội thất' %>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                  </table>
+
+                  <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      <li class="page-item"><a class="page-link" href="#">«</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="create-modal-xl">
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Tạo mới căn hộ</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      <form>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label>Dự án</label>
+                            <select class="custom-select" id="selectProject">
+                              <% dataProject.forEach(element => { %>
+                                  <option value="<%= element._id %>"><%= element.project_name %></option>
+                              <% }) %>
+                            </select>
+                            </div>
+                          <div class="form-group">
+                            <label for="inputApartmentName">Tên căn hộ</label>
+                            <input type="text" class="form-control" id="inputApartmentName" placeholder="Tên căn hộ">
+                          </div>
+                          <div class="form-group">
+                            <label>Trục căn hộ</label>
+                            <select class="custom-select" id="selectAxis">
+                              <% dataAxis.forEach(element => { %>
+                                  <option value="<%= element._id %>"><%= element.axis_name %></option>
+                              <% }) %>
+                            </select>
+                            </div>
+                          <div class="form-group">
+                            <label for="inputOwner">Chủ căn hộ</label>
+                            <input type="text" class="form-control" id="inputOwner" placeholder="Tên chủ căn hộ">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPhonNumber">Số điện thoại</label>
+                            <input type="text" class="form-control" id="inputPhonNumber" placeholder="Số điện thoại">
+                          </div>
+                        <div class="form-group">
+                            <label>Loại bất động sản</label>
+                            <select class="custom-select" id="selectProperty">
+                              <% dataProperty.forEach(element => { %>
+                                  <option value="<%= element._id %>"><%= element.property_name %></option>
+                              <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFloor">Tầng</label>
+                            <input type="number" class="form-control" id="inputFloor" placeholder="Tầng">
+                          </div>
+                        <div class="form-group">
+                            <label for="inputArea">Diện tích</label>
+                            <input type="number" class="form-control" id="inputArea" placeholder="Diện tích">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputBedrooms">Số phòng ngủ</label>
+                            <input type="text" class="form-control" id="inputBedrooms" placeholder="Số phòng ngủ">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputBathrooms">Số phòng vệ sinh</label>
+                            <input type="text" class="form-control" id="inputBathrooms" placeholder="Số phòng vệ sinh">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputSalePrice">Giá bán</label>
+                            <input type="text" pattern="[0-9.,]+" required data-type="number" class="form-control format-number" id="inputSalePrice" placeholder="Giá bán">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputRentalPrice">Giá cho thuê</label>
+                            <input type="text" pattern="[0-9.,]+" name="inputRentalPrice" required data-type="number" class="form-control format-number" id="inputRentalPrice" placeholder="Giá cho thuê">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputAvailableFrom">Cho thuê từ ngày</label>
+                            <input type="date" class="form-control" id="inputAvailableFrom" placeholder="Cho thuê từ ngày">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputAvailableUntil">Cho thuê đến ngày</label>
+                            <input type="date" class="form-control" id="inputAvailableUntil" placeholder="Cho thuê đến ngày">
+                          </div>
+                          <div class="form-group">
+                            <label>Nội thất</label>
+                            <select class="custom-select" id="selectFurnished">
+                                  <option value="true">Nội thất cơ bản</option>
+                                  <option value="false">Full nội thất</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBalconies">Số ban công</label>
+                            <input type="number" class="form-control" id="inputBalconies" placeholder="Số ban công">
+                          </div>
+                          <div class="form-group">
+                            <label>Hướng ban công</label>
+                            <select class="custom-select" id="selectBalconyDirection">
+                                <% dataBalconyDirection.forEach(element => { %>
+                                  <option value="<%= element._id  %>"><%= element.balcony_direction_name %></option>
+                               <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputUpdate">Thời gian cập nhật căn hộ</label>
+                            <input type="date" class="form-control" id="inputUpdate" placeholder="Số ban công">
+                          </div>
+                          <div class="form-group">
+                            <label>Trạng thái</label>
+                            <select class="custom-select" id="selectStatus">
+                                <% dataStatus.forEach(element => { %>
+                                    <option value="<%= element._id %>"><%= element.status_name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ghi chú</label>
+                            <textarea type="text" class="form-control" id="inputNote" placeholder="Enter...."></textarea>
+                        </div>
+                        </div>
+    
+                        <!-- /.card-body -->
+                      </form>
+                    </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="onClick()">Lưu</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+          </div>
+        </div>
+        <% include includes/foot.ejs %>
+        <script src="../../plugins/select2/js/select2.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+
+        <script>
+          $(function () {
+            $('.select2').select2()
+          });
+
+          const onClick = () => {
+            var project_id = document.getElementById('selectProject').value
+            var apartment_name = document.getElementById('inputApartmentName').value
+            var axis = document.getElementById('selectAxis').value
+            var owner_name = document.getElementById('inputOwner').value
+            var phone_number = document.getElementById('inputPhonNumber').value
+            var property_id = document.getElementById('selectProperty').value
+            var floor = document.getElementById('inputFloor').value
+            var area = document.getElementById('inputArea').value
+            var bedrooms = document.getElementById('inputBedrooms').value
+            var bathrooms = document.getElementById('inputBathrooms').value
+            var sale_price = document.getElementById('inputSalePrice').value
+            var rental_price = document.getElementById('inputRentalPrice').value
+            var available_from = document.getElementById('inputAvailableFrom').value
+            var available_until = document.getElementById('inputAvailableUntil').value
+            var furnished = document.getElementById('selectFurnished').value
+            var balconies = document.getElementById('inputBalconies').value
+            var balcony_direction = document.getElementById('selectBalconyDirection').value
+            var last_update = document.getElementById('inputUpdate').value
+            var status_id = document.getElementById('selectStatus').value
+            var notes = document.getElementById('inputNote').value 
+            axios.post('/create', {
+              project_id: project_id,
+              apartment_name: apartment_name,
+              axis: axis,
+              owner_name: owner_name,
+              phone_number: phone_number,
+              property_id: property_id,
+              floor: floor,
+              area: area,
+              bedrooms: bedrooms,
+              bathrooms: bathrooms,
+              sale_price: sale_price,
+              rental_price: rental_price,
+              available_from: available_from,
+              available_until: available_until,
+              furnished: furnished,
+              balconies:balconies,
+              balcony_direction: balcony_direction,
+              last_update: last_update,
+              status_id: status_id,
+              notes:notes
+            }).then(res => location.reload()).catch(e=>console.log(e))
+          }
+
+          function formatCash(str) {
+ 	return str.split('').reverse().reduce((prev, next, index) => {
+ 		return ((index % 3) ? next : (next + ',')) + prev
+ 	})
+}
+
+  const clickDelete = (id) => {
+      axios.post('/delete',{id:id}).then(res=>{
+        $("[data-dismiss=modal]").trigger({ type: "click" });
+        location.reload()
+      })
+      .catch(err=>console.log(err))
+    }
+
+$('input.format-number').keyup(function(e) {
+    let parts = $(this).val().split(".");
+    let v = parts[0].replace(/\D/g, ""),
+      dec = parts[1]
+    let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+    // use this for numeric calculations
+    // console.log('number for calculations: ', calc_num);
+    let n = new Intl.NumberFormat('en-EN').format(v);
+    n = dec !== undefined ? n + "." + dec : n;
+    $(this).val(n);
+})
+
+const clickEdit = (id) => {
+  var project_id = document.getElementById(`selectProject-${id}`).value
+            var apartment_name = document.getElementById(`inputApartmentName-${id}`).value
+            var axis = document.getElementById(`selectAxis-${id}`).value
+            var owner_name = document.getElementById(`inputOwner-${id}`).value
+            var phone_number = document.getElementById(`inputPhonNumber-${id}`).value
+            var property_id = document.getElementById(`selectProperty-${id}`).value
+            var floor = document.getElementById(`inputFloor-${id}`).value
+            var area = document.getElementById(`inputArea-${id}`).value
+            var bedrooms = document.getElementById(`inputBedrooms-${id}`).value
+            var bathrooms = document.getElementById(`inputBathrooms-${id}`).value
+            var sale_price = document.getElementById(`inputSalePrice-${id}`).value
+            var rental_price = document.getElementById(`inputRentalPrice-${id}`).value
+            var available_from = document.getElementById(`inputAvailableFrom-${id}`).value
+            var available_until = document.getElementById(`inputAvailableUntil-${id}`).value
+            var furnished = document.getElementById(`selectFurnished-${id}`).value
+            var balconies = document.getElementById(`inputBalconies-${id}`).value
+            var balcony_direction = document.getElementById(`selectBalconyDirection-${id}`).value
+            var last_update = document.getElementById(`inputUpdate-${id}`).value
+            var status_id = document.getElementById(`selectStatus-${id}`).value
+            var notes = document.getElementById(`inputNote-${id}`).value
+            axios.post('/edit', {
+              id:id,
+              project_id: project_id,
+              apartment_name: apartment_name,
+              axis: axis,
+              owner_name: owner_name,
+              phone_number: phone_number,
+              property_id: property_id,
+              floor: floor,
+              area: area,
+              bedrooms: bedrooms,
+              bathrooms: bathrooms,
+              sale_price: sale_price,
+              rental_price: rental_price,
+              available_from: available_from,
+              available_until: available_until,
+              furnished: furnished,
+              balconies:balconies,
+              balcony_direction: balcony_direction,
+              last_update: last_update,
+              status_id: status_id,
+              notes:notes
+            }).then(res => location.reload()).catch(e=>console.log(e))
+          } 
+      </script>
