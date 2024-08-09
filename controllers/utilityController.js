@@ -1,4 +1,4 @@
-const Utility = require("../models/Utility")
+const Utility = require("../models/Util")
 
 const getAllUtilityController = async (req,res) => {
     const allUtility = await Utility.find({isDelete: false})
