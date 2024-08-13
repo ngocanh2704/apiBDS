@@ -16,7 +16,6 @@ const verifyToken = (req, res, next) => {
       .json({ success: false, message: "Token đã hết hạn" });
   try {
     const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    console.log(decode)
     next();
   } catch (error) {
     // console.log(error.decode);

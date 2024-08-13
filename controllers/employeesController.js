@@ -87,7 +87,6 @@ const editEmployeeController = async (req, res) => {
     // image_cccd.mv(
     //   path.join(__dirname, "../public/upload/") + employeeName + ".png"
     // );const image = req.files.cccd_image;
-    console.log(req.files)
     if (Array.isArray(cccd_image)){
       cccd_image.forEach((element) => {
         element.mv(
