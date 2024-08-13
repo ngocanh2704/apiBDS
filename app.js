@@ -13,8 +13,8 @@ var bodyParser = require("body-parser");
 
 const connectDB = async ()=>{
   try {
-    await mongoose.connect('mongodb://103.72.96.42:27017/WebBDS')
-    // await mongoose.connect('mongodb://127.0.0.1:27017/WebBDS')
+    // await mongoose.connect('mongodb://restricted:*****@103.72.96.42:27017/?authSource=WebBDS')
+    await mongoose.connect('mongodb://127.0.0.1:27017/WebBDS')
     console.log("MongoDB connected")
   } catch (error) {
     console.log(error.message)
