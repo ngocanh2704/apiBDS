@@ -7,7 +7,6 @@ require("dotenv").config();
 const getAllUserController = async (req, res) => {
   const allUser = await Users.find({ isDelete: false }).populate("employee_ID");
   const employees = await Employees.find();
-  // res.render("user", { data: allUser, dataEmployee: employees, user: user });
   res.json({ success: true, user: allUser, dataEmployee: employees });
 };
 

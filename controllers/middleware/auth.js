@@ -1,13 +1,3 @@
-var jwt = require("jsonwebtoken");
-require("dotenv").config();
-
-const checkLoggin = (req, res, next) => {
-  if (req.session.user) {
-    return next();
-  }
-  return res.redirect("/login");
-};
-
 const verifyToken = (req, res, next) => {
   var token = req.headers.authorization.split(" ")[1];
   if (!token)
@@ -24,6 +14,5 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = {
-  checkLoggin,
   verifyToken,
 };

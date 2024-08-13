@@ -1,6 +1,5 @@
 var express = require('express')
 const { getAllProjectController, createProjectController, deleteProjectController, editProjectController, detailProjectController } = require('../controllers/projectController')
-const { checkLoggin } = require('../controllers/middleware/auth')
 var router = express.Router()
 
 // @route Get Project

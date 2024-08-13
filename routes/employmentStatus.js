@@ -1,14 +1,13 @@
 var express = require('express')
 const { getAllEmploymentStatusController, createEmploymentStatusController, deleteEmploymentStatusController, editEmploymentStatusController } = require('../controllers/employmentStatusController')
-const { checkLoggin } = require('../controllers/middleware/auth')
 var router = express.Router()
 
-router.get('/',checkLoggin,getAllEmploymentStatusController)
+router.get('/',getAllEmploymentStatusController)
 
-router.post('/create',checkLoggin, createEmploymentStatusController)
+router.post('/create', createEmploymentStatusController)
 
-router.post('/edit',checkLoggin, editEmploymentStatusController)
+router.post('/edit', editEmploymentStatusController)
 
-router.post('/delete', checkLoggin,deleteEmploymentStatusController)
+router.post('/delete',deleteEmploymentStatusController)
 
 module.exports = router

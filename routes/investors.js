@@ -1,22 +1,21 @@
 var express = require('express')
 const { getAllInvestorController, createInvestorController, deleteInvestorController, editInvestorController } = require('../controllers/investorController')
-const { checkLoggin } = require('../controllers/middleware/auth')
 var router =  express.Router()
 
 // @route GET investor
 // @desct Lấy tất cả chủ đầu tư
-router.get('/',checkLoggin,getAllInvestorController)
+router.get('/',getAllInvestorController)
 
 // @route POST create investor
 // @desc Tạo mới chủ đầu tư
-router.post('/create', checkLoggin,createInvestorController)
+router.post('/create', createInvestorController)
 
 // @route POST delete investor
 // @desc Xoá chủ đầu tư
-router.post('/delete',checkLoggin, deleteInvestorController)
+router.post('/delete', deleteInvestorController)
 
 // @route POST edit investor
 // @desc Sửa chủ đầu tư
-router.post('/edit', checkLoggin,editInvestorController)
+router.post('/edit', editInvestorController)
 
 module.exports = router

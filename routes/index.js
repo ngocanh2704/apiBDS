@@ -1,5 +1,4 @@
 var express = require('express');
-const { checkLoggin } = require('../controllers/middleware/auth');
 const { getAll, createData, deleteData, editData, requestData, getAllKhoSale, getALlKhoBan, getALlRequest, approveData, getALlApprove } = require('../controllers/indexController');
 var router = express.Router();
 
