@@ -1,6 +1,5 @@
 var express = require('express')
 const { getAllAxisController, createAxisController, deleteAxisController, editAxisController, detailAxisController } = require('../controllers/axisController')
-const { checkLoggin } = require('../controllers/middleware/auth')
 var router =  express.Router()
 
 // @route GET investor

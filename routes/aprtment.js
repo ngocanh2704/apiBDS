@@ -1,6 +1,5 @@
 var express = require('express')
 const { getAllApartmentController, createApartmentController, deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController } = require('../controllers/apartmentController')
-const { checkLoggin } = require('../controllers/middleware/auth')
 var router =  express.Router()
 
 // @route GET investor
