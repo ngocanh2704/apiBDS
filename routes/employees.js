@@ -13,7 +13,7 @@ var router = express.Router();
 
 //@router Get Employee
 //@desc Get nhân viên
-router.get("/",verifyToken ,getAllEmployeeController);
+router.get("/" ,getAllEmployeeController);
 
 router.post("/create" ,createEmployeeController);
 
