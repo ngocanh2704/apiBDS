@@ -1,5 +1,5 @@
 var express = require('express')
-const { getAllApartmentController, createApartmentController, deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController } = require('../controllers/apartmentController')
+const { getAllApartmentController, createApartmentController, deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController } = require('../controllers/apartmentController')
 var router =  express.Router()
 
 // @route GET investor
@@ -22,5 +22,6 @@ router.post('/detail', detailApartmentController)
 
 router.post('/upload', uploadImageController)
 router.post('/delete-image', deleteImageController)
+router.post('/search',searchApartmentController)
 
 module.exports = router

@@ -5,7 +5,7 @@ const getAllBuildingController = async (req,res) => {
     const allBuilding = await Building.find({isDelete: false}).populate('project')
     const allProject = await Project.find({isDelete: false})
     const user =   req.session.user
-    res.render('building', {data: allBuilding, dataProject: allProject, user: user})
+   res.json({success: true, data: allBuilding})
 }
 
 const createBuildingController = async (req,res) => {
@@ -42,9 +42,16 @@ const editBuildingController = async (req,res) => {
     res.json({success: true, message:"Toà dự án đã được sửa."})
 }
 
+const detailBuildingController =  async (req,res) => {
+    const {id} = req.body
+    const detail = await Building.findById(id,{isDelete: false})
+        res.json({success: true, building: detail})
+}
+
+
 module.exports = {
     getAllBuildingController,
     createBuildingController,
     deleteBuildingController,
-    editBuildingController
+    editBuildingController,detailBuildingController
 }

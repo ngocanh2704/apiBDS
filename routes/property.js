@@ -1,5 +1,5 @@
 var express = require('express')
-const { getAllPropertyController, createPropertyController, deletePropertyController, editPropertyController } = require('../controllers/propertyController')
+const { getAllPropertyController, createPropertyController, deletePropertyController, editPropertyController, detailPropertyController } = require('../controllers/propertyController')
 var router =  express.Router()
 
 // @route GET investor
@@ -17,5 +17,7 @@ router.post('/delete',deletePropertyController)
 // @route POST edit investor
 // @desc Sửa trục căn hộ
 router.post('/edit', editPropertyController)
+
+router.post('/detail', detailPropertyController)
 
 module.exports = router

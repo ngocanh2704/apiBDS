@@ -1,9 +1,8 @@
 const Property = require("../models/Property")
 
 const getAllPropertyController = async (req,res) => {
-    const allInvestor = await Property.find({isDelete: true})
-    const user =   req.session.user
-    res.render('property', {data: allInvestor,user: user})
+    const allInvestor = await Property.find({isDelete: false})
+    res.json({success: true, data: allInvestor})
 }
 
 const createPropertyController = async (req,res) => {
@@ -22,7 +21,7 @@ const createPropertyController = async (req,res) => {
 
 const deletePropertyController = async (req,res) => {
     const {id} = req.body
-    const deleteProperty = await Property.findByIdAndUpdate(id,{isDelete:false})
+    const deleteProperty = await Property.findByIdAndUpdate(id,{isDelete:true})
     res.json({success: true, message:"Trục căn hộ đã được xoá."})
 }
 
@@ -39,9 +38,17 @@ const editPropertyController = async (req,res) => {
     res.json({success: true, message:"Trục căn hộ đã được sửa."})
 }
 
+const detailPropertyController =  async (req,res) => {
+    const {id} = req.body
+    const detail = await Property.findById(id,{isDelete: false})
+    console.log(detail)
+        res.json({success: true, property: detail})
+}
+
 module.exports = {
     getAllPropertyController,
     createPropertyController,
     deletePropertyController,
-    editPropertyController
+    editPropertyController,
+    detailPropertyController
 }

@@ -6,6 +6,14 @@ const ApartmentSchema = new Schema({
     type: String,
     require: true,
   },
+  building: {
+    type: Schema.Types.ObjectId,
+    ref: "building",
+  },
+  property: {
+    type: Schema.Types.ObjectId,
+    ref: "property",
+  },
   user_id: {
     type: Schema.Types.ObjectId,
     ref: "user",
@@ -27,11 +35,11 @@ const ApartmentSchema = new Schema({
     require: true,
   },
   floor: {
-    type: Number,
+    type: String,
     require: true,
   },
   area: {
-    type: Number,
+    type: String,
     require: true,
   },
   phone_number: {
@@ -67,7 +75,7 @@ const ApartmentSchema = new Schema({
     require: true,
   },
   balconies: {
-    type: Number,
+    type: String,
     require: true,
   },
   balcony_direction: {
@@ -118,6 +126,10 @@ const ApartmentSchema = new Schema({
     type: Array,
     reuquire: true,
   },
+  color: {
+    type: String,
+    default: 'blue'
+  }
 });
 
 module.exports = mongoose.model("apartment", ApartmentSchema);

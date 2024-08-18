@@ -74,7 +74,7 @@ const loginUserController = async (req, res) => {
   }
 
   const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "24h",
   });
 
   res.json({

@@ -12,47 +12,38 @@ const getAllApartmentController = async (req, res) => {
     .populate("property")
     .populate("status")
     .populate("balcony_direction")
-    .populate("project");
-  const allOwner = await Owner.find({ isDelete: true });
-  const allProperty = await Property.find({ isDelete: true });
-  const allStatus = await Status.find({ isDelete: true });
-  const allBalconyDirection = await BalconyDirection.find({ isDelete: true });
+    .populate("project")
+    .populate('axis').populate('building').sort({'status': 1, 'color': -1})
   res.json({ success: true, data: allApartment });
 };
 
 const createApartmentController = async (req, res) => {
   const {
-    apartment_name,
+    area,
     axis,
     balconies,
     balcony_direction,
     bathrooms,
     bedrooms,
-    floor,
+    building,
+    last_updated,
     notes,
     owner,
     phone_number,
     project,
-    last_updated,
     property,
     rental_price,
     sale_price,
     status,
+    floor,
+    furnished,
     available_from,
     available_until,
-    area,
-    furnished,
+    color
   } = req.body;
-  const apartmentName = await Apartment.findOne({
-    apartment_name: apartment_name,
-  });
-  if (apartmentName)
-    return res
-      .status(400)
-      .json({ success: false, message: "Tên căn hộ đã tồn tại." });
 
   const newApartment = new Apartment({
-    apartment_name: apartment_name,
+    building: building,
     phone_number: phone_number,
     project: project,
     axis: axis,
@@ -72,6 +63,7 @@ const createApartmentController = async (req, res) => {
     last_updated: last_updated,
     status: status,
     notes: notes,
+    color: color
   });
 
   await newApartment.save();
@@ -89,7 +81,7 @@ const deleteApartmentController = async (req, res) => {
 const editApartmentController = async (req, res) => {
   const {
     id,
-    apartment_name,
+    building,
     axis,
     balconies,
     balcony_direction,
@@ -109,12 +101,13 @@ const editApartmentController = async (req, res) => {
     available_until,
     area,
     furnished,
+    color
   } = req.body;
 
   const editApartment = await Apartment.findByIdAndUpdate(
     id,
     {
-      apartment_name: apartment_name,
+      building: building,
       phone_number: phone_number,
       project: project,
       axis: axis,
@@ -134,6 +127,7 @@ const editApartmentController = async (req, res) => {
       last_updated: last_updated,
       status: status,
       notes: notes,
+      color: color
     },
     { new: true }
   );
@@ -185,7 +179,22 @@ const deleteImageController = async (req, res) => {
       return;
     }
   });
-  res.json({success: true, message: 'Đã xoá thành công'})
+  res.json({ success: true, message: "Đã xoá thành công" });
+};
+
+const searchApartmentController = async (req, res) => {
+  const {
+    project_id,
+    building_id,
+    furnished,
+    property_id,
+    balconyDirection_id,
+    bedrooms,
+    axis_id,
+  } = req.body;
+  console.log(req.body)
+  const findApartment = await Apartment.find({ });
+  res.json({success: true, data: findApartment})
 };
 
 module.exports = {
@@ -196,4 +205,5 @@ module.exports = {
   detailApartmentController,
   uploadImageController,
   deleteImageController,
+  searchApartmentController,
 };
