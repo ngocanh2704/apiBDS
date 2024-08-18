@@ -1,6 +1,7 @@
 const Apartment = require("../models/Apartment");
 var path = require("path");
 const fs = require("fs");
+const Users = require("../models/Users");
 
 const getAllApartmentController = async (req, res) => {
   const allApartment = await Apartment.find({ isDelete: false })
@@ -14,6 +15,24 @@ const getAllApartmentController = async (req, res) => {
     .populate("building")
     .sort({ status: 1, color: -1 });
   res.json({ success: true, data: allApartment });
+};
+
+const getAllKhoBan = async (req, res) => {
+  const allApartmentSalePrice = await Apartment.find({
+    isDelete: false,
+    rental_price: 0,
+  })
+    .populate("owner")
+    .populate("properties")
+    .populate("status")
+    .populate("balcony_direction")
+    .populate("project")
+    .populate("furnished")
+    .populate("axis")
+    .populate("building")
+    .sort({ status: 1, color: -1 });
+
+  res.json({ success: true, data: allApartmentSalePrice });
 };
 
 const createApartmentController = async (req, res) => {
@@ -197,6 +216,82 @@ const searchApartmentController = async (req, res) => {
   res.json({ success: true, data: findApartment });
 };
 
+const getAllKhoMua = async (req, res) => {
+  const allApartmentRentalPrice = await Apartment.find({
+    isDelete: false,
+    sale_price: 0,
+  })
+    .populate("owner")
+    .populate("properties")
+    .populate("status")
+    .populate("balcony_direction")
+    .populate("project")
+    .populate("furnished")
+    .populate("axis")
+    .populate("building")
+    .sort({ status: 1, color: -1 });
+  res.json({ success: true, data: allApartmentRentalPrice });
+};
+
+const getALlRequest = async (req, res) => {
+  const allApartmentRequest = await Apartment.find({
+    isDelete: false,
+    isRequest: true,
+    isApprove: false,
+  })
+  .populate("owner")
+  .populate("properties")
+  .populate("status")
+  .populate("balcony_direction")
+  .populate("project")
+  .populate("furnished")
+  .populate("axis")
+  .populate("building")
+  .sort({ status: 1, color: -1 });
+  res.json({ success: true, data: allApartmentRequest });
+};
+
+const getALlApprove = async (req, res) => {
+  const allApartmentApprove = await Apartment.find({
+    isDelete: false,
+    isRequest: true,
+    isApprove: true,
+  })
+  .populate("owner")
+  .populate("properties")
+  .populate("status")
+  .populate("balcony_direction")
+  .populate("project")
+  .populate("furnished")
+  .populate("axis")
+  .populate("building")
+  .sort({ status: 1, color: -1 });
+  res.json({ success: true, data: allApartmentApprove });
+}
+const requestData = async (req, res) => {
+  const { id } = req.body;
+  const deleteInvestor = await Apartment.findByIdAndUpdate(
+    id,
+    { isRequest: true },
+    { new: true }
+  );
+  res.json({ success: true, message: "Căn hộ đã đã được yêu cầu " });
+};
+
+const approveData = async (req, res) => {
+  const { id, user } = req.body;
+  const apartmentFind = await Apartment.findById(id);
+  const userFind = await Users.findById(user);
+  var arr = apartmentFind.user_approve;
+  arr.push({ name: userFind.username, id: user });
+  const approveData = await Apartment.findByIdAndUpdate(
+    id,
+    { isApprove: true, user_approve: arr },
+    { new: true }
+  );
+  res.json({ success: true, message: "Căn hộ đã đã được yêu cầu " });
+};
+
 module.exports = {
   getAllApartmentController,
   createApartmentController,
@@ -206,4 +301,10 @@ module.exports = {
   uploadImageController,
   deleteImageController,
   searchApartmentController,
+  getAllKhoBan,
+  getAllKhoMua,
+  getALlRequest,
+  getALlApprove,
+  requestData,
+  approveData
 };

@@ -1,9 +1,8 @@
 var express = require('express');
-const { getAll, createData, deleteData, editData, requestData, getAllKhoSale, getALlKhoBan, getALlRequest, approveData, getALlApprove } = require('../controllers/indexController');
+const { createData, deleteData, editData, requestData, getAllKhoSale, getALlKhoBan, getALlRequest, approveData, getALlApprove } = require('../controllers/indexController');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/' ,getAll)
 router.get('/khosale' ,getAllKhoSale)
 router.get('/khoretal' ,getALlKhoBan)
 router.get('/request' ,getALlRequest)
@@ -15,7 +14,7 @@ router.post('/delete', deleteData)
 
 router.post('/edit', editData)
 
-router.post('/request', requestData)
-router.post('/approve' ,approveData)
+router.post('/request-data', requestData)
+router.post('/approve-data' ,approveData)
 
 module.exports = router;

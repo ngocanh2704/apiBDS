@@ -1,7 +1,7 @@
 const Apartment = require("../models/Apartment");
 const BalconyDirection = require("../models/BalconyDirection");
 const Owner = require("../models/Owner");
-const Property = require("../models/Properties");
+const Properties = require("../models/Properties");
 const Status = require("../models/Status");
 const Project = require("../models/Project");
 const Axis = require("../models/Axis");
@@ -9,180 +9,31 @@ const User = require("../models/Users");
 const Building = require("../models/Building");
 const Users = require("../models/Users");
 
-const getAll = async (req, res) => {
-  const allApartment = await Apartment.find({ isDelete: false })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allOwner = await Owner.find({ isDelete: true });
-  const allProperty = await Property.find({ isDelete: true });
-  const allStatus = await Status.find({ isDelete: true });
-  const allBalconyDirection = await BalconyDirection.find({ isDelete: true });
-  const allProject = await Project.find({ isDelete: false });
-  const allAxis = await Axis.find({ isDelete: false });
-  const allBuilding = await Building.find({ isDelete: false });
-  const user = req.session.user;
-
-  const allApartmentSalePrice = await Apartment.find({
-    isDelete: false,
-    rental_price: 0,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allApartmentRentalPrice = await Apartment.find({
-    isDelete: false,
-    sale_price: 0,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allApartmentRequest = await Apartment.find({
-    isDelete: false,
-    isRequest: true,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allApartmentApprove = await Apartment.find({
-    isDelete: false,
-    isApprove: true,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  res.render("index", {
-    data: allApartment,
-    dataOwner: allOwner,
-    dataProperty: allProperty,
-    dataStatus: allStatus,
-    dataBalconyDirection: allBalconyDirection,
-    dataProject: allProject,
-    dataAxis: allAxis,
-    dataSale: allApartmentSalePrice,
-    dataRental: allApartmentRentalPrice,
-    dataRequest: allApartmentRequest,
-    dataApprove: allApartmentApprove,
-    dataBuilding: allBuilding,
-  });
-};
-
 const getAllKhoSale = async (req, res) => {
-  const allApartment = await Apartment.find({ isDelete: false })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allOwner = await Owner.find({ isDelete: true });
-  const allProperty = await Property.find({ isDelete: true });
-  const allStatus = await Status.find({ isDelete: true });
-  const allBalconyDirection = await BalconyDirection.find({ isDelete: true });
-  const allProject = await Project.find({ isDelete: false });
-  const allAxis = await Axis.find({ isDelete: false });
-  const user = req.session.user;
-
   const allApartmentSalePrice = await Apartment.find({
     isDelete: false,
     rental_price: 0,
   })
     .populate("owner")
-    .populate("property")
+    .populate("properties")
     .populate("status")
     .populate("balcony_direction")
     .populate("project")
     .populate("axis");
-  const allApartmentRentalPrice = await Apartment.find({
-    isDelete: false,
-    sale_price: 0,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allApartmentRequest = await Apartment.find({
-    isDelete: false,
-    isRequest: true,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  const allApartmentApprove = await Apartment.find({
-    isDelete: false,
-    isApprove: true,
-  })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
-  // res.render("khosale", {
-  //   data: allApartment,
-  //   dataOwner: allOwner,
-  //   dataProperty: allProperty,
-  //   dataStatus: allStatus,
-  //   dataBalconyDirection: allBalconyDirection,
-  //   dataProject: allProject,
-  //   dataAxis: allAxis,
-  //   dataSale: allApartmentSalePrice,
-  //   dataRental: allApartmentRentalPrice,
-  //   dataRequest : allApartmentRequest,
-  //   dataApprove: allApartmentApprove,
-  //   user: user
-  // });
+
   res.json({ success: true, data: allApartmentSalePrice });
 };
 const getALlKhoBan = async (req, res) => {
-  const allOwner = await Owner.find({ isDelete: true });
-  const allProperty = await Property.find({ isDelete: true });
-  const allStatus = await Status.find({ isDelete: true });
-  const allBalconyDirection = await BalconyDirection.find({ isDelete: true });
-  const allProject = await Project.find({ isDelete: false });
-  const allAxis = await Axis.find({ isDelete: false });
-  const user = req.session.user;
-
   const allApartmentRentalPrice = await Apartment.find({
     isDelete: false,
     sale_price: 0,
   })
     .populate("owner")
-    .populate("property")
+    .populate("properties")
     .populate("status")
     .populate("balcony_direction")
     .populate("project")
     .populate("axis");
-  // res.render("khoretal", {
-  //   dataOwner: allOwner,
-  //   dataProperty: allProperty,
-  //   dataStatus: allStatus,
-  //   dataBalconyDirection: allBalconyDirection,
-  //   dataProject: allProject,
-  //   dataAxis: allAxis,
-  //   dataRental: allApartmentRentalPrice,
-  //   user: user
-  // });
   res.json({ success: true, data: allApartmentRentalPrice });
 };
 
@@ -193,7 +44,7 @@ const getALlRequest = async (req, res) => {
     isApprove: false,
   })
     .populate("owner")
-    .populate("property")
+    .populate("properties")
     .populate("status")
     .populate("balcony_direction")
     .populate("project")
@@ -331,18 +182,20 @@ const requestData = async (req, res) => {
 };
 
 const getALlApprove = async (req, res) => {
-  const { user } = req.body;
   const allApartmentApprove = await Apartment.find({
     isDelete: false,
     isRequest: true,
     isApprove: true,
   })
-    .populate("owner")
-    .populate("property")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("axis");
+  .populate("owner")
+  .populate("properties")
+  .populate("status")
+  .populate("balcony_direction")
+  .populate("project")
+  .populate("furnished")
+  .populate("axis")
+  .populate("building")
+  .sort({ status: 1, color: -1 });
   res.json({ success: true, data: allApartmentApprove });
 };
 
@@ -361,7 +214,6 @@ const approveData = async (req, res) => {
 };
 
 module.exports = {
-  getAll,
   createData,
   deleteData,
   editData,

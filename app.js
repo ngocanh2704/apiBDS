@@ -87,14 +87,13 @@ app.use('/furnished/edit', furnishedRouter)
 app.use('/furnished/detail', furnishedRouter)
 
 app.use('/', indexRouter);
-app.use('/khosale', indexRouter);
 app.use('/khoretal', indexRouter);
 app.use('/request', indexRouter);
 app.use('/create', indexRouter);
 app.use('/delete', indexRouter)
 app.use('/edit', indexRouter)
-app.use('/request', indexRouter)
-app.use('/approve', indexRouter)
+app.use('/request-data', indexRouter)
+app.use('/approve-data', indexRouter)
 
 
 app.use('/login', loginRouter)
@@ -171,6 +170,11 @@ app.use('/apartment/detail', apartmentRouter)
 app.use('/apartment/upload', apartmentRouter)
 app.use('/apartment/delete-image', apartmentRouter)
 app.use('/apartment/search', apartmentRouter)
+app.use('/apartment/khosale', apartmentRouter);
+app.use('/apartment/approve', apartmentRouter);
+app.use('/apartment/request-data', apartmentRouter);
+app.use('/apartment/approve-data', apartmentRouter);
+
 
 app.use('/image', imageRouter)
 app.use('/image/create',imageRouter)
