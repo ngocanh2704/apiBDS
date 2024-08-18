@@ -40,9 +40,23 @@ var apartmentRouter =require('./routes/aprtment')
 var imageRouter = require('./routes/image')
 var loginRouter = require('./routes/login')
 
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+
 var app = express();
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOpts))
 
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true}));
