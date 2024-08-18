@@ -39,6 +39,7 @@ var buildingRouter = require('./routes/building')
 var apartmentRouter =require('./routes/aprtment')
 var imageRouter = require('./routes/image')
 var loginRouter = require('./routes/login')
+var furnishedRouter = require('./routes/furnished')
 
 const corsOpts = {
   origin: '*',
@@ -56,7 +57,8 @@ const corsOpts = {
 
 var app = express();
 app.use(express.json())
-app.use(cors(corsOpts))
+// app.use(cors(corsOpts))
+app.use(cors())
 
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true}));
@@ -77,6 +79,12 @@ app.use(session({
   saveUninitialized: true
   // cookie: { maxAge: 300000 }
 }))
+
+app.use('/furnished', furnishedRouter)
+app.use('/furnished/create', furnishedRouter)
+app.use('/furnished/delete', furnishedRouter)
+app.use('/furnished/edit', furnishedRouter)
+app.use('/furnished/detail', furnishedRouter)
 
 app.use('/', indexRouter);
 app.use('/khosale', indexRouter);

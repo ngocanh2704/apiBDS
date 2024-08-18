@@ -2,8 +2,8 @@ const Investors = require('../models/Investors')
 
 const getAllInvestorController = async (req,res) => {
     const allInvestor = await Investors.find({isDelete: true})
-    const user =   req.session.user
-    res.render('investor', {data: allInvestor,user:user})
+    // res.json('investor', {data: allInvestor,user:user})
+    res.json({success: true, data: allInvestor})
 }
 
 const createInvestorController = async (req,res) => {

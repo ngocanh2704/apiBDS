@@ -10,9 +10,9 @@ const ApartmentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "building",
   },
-  property: {
+  properties: {
     type: Schema.Types.ObjectId,
-    ref: "property",
+    ref: "properties",
   },
   user_id: {
     type: Schema.Types.ObjectId,
@@ -27,10 +27,6 @@ const ApartmentSchema = new Schema({
     ref: "axis",
   },
   owner: {
-    type: String,
-    require: true,
-  },
-  property: {
     type: String,
     require: true,
   },
@@ -71,8 +67,8 @@ const ApartmentSchema = new Schema({
     require: true,
   },
   furnished: {
-    type: Boolean,
-    require: true,
+    type: Schema.Types.ObjectId,
+    ref: "furnished",
   },
   balconies: {
     type: String,
@@ -128,8 +124,8 @@ const ApartmentSchema = new Schema({
   },
   color: {
     type: String,
-    default: 'blue'
-  }
+    require: "#ffffff",
+  },
 });
 
 module.exports = mongoose.model("apartment", ApartmentSchema);

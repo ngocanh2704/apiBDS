@@ -1,19 +1,18 @@
 const Apartment = require("../models/Apartment");
-const BalconyDirection = require("../models/BalconyDirection");
-const Owner = require("../models/Owner");
-const Property = require("../models/Property");
-const Status = require("../models/Status");
 var path = require("path");
 const fs = require("fs");
 
 const getAllApartmentController = async (req, res) => {
   const allApartment = await Apartment.find({ isDelete: false })
     .populate("owner")
-    .populate("property")
+    .populate("properties")
     .populate("status")
     .populate("balcony_direction")
     .populate("project")
-    .populate('axis').populate('building').sort({'status': 1, 'color': -1})
+    .populate("furnished")
+    .populate("axis")
+    .populate("building")
+    .sort({ status: 1, color: -1 });
   res.json({ success: true, data: allApartment });
 };
 
@@ -39,7 +38,7 @@ const createApartmentController = async (req, res) => {
     furnished,
     available_from,
     available_until,
-    color
+    color,
   } = req.body;
 
   const newApartment = new Apartment({
@@ -48,7 +47,7 @@ const createApartmentController = async (req, res) => {
     project: project,
     axis: axis,
     owner: owner,
-    property: property,
+    properties: property,
     floor: floor,
     area: area,
     bedrooms: bedrooms,
@@ -63,7 +62,7 @@ const createApartmentController = async (req, res) => {
     last_updated: last_updated,
     status: status,
     notes: notes,
-    color: color
+    color: color,
   });
 
   await newApartment.save();
@@ -101,7 +100,7 @@ const editApartmentController = async (req, res) => {
     available_until,
     area,
     furnished,
-    color
+    color,
   } = req.body;
 
   const editApartment = await Apartment.findByIdAndUpdate(
@@ -112,7 +111,7 @@ const editApartmentController = async (req, res) => {
       project: project,
       axis: axis,
       owner: owner,
-      property: property,
+      properties: property,
       floor: floor,
       area: area,
       bedrooms: bedrooms,
@@ -127,7 +126,7 @@ const editApartmentController = async (req, res) => {
       last_updated: last_updated,
       status: status,
       notes: notes,
-      color: color
+      color: color,
     },
     { new: true }
   );
@@ -141,7 +140,8 @@ const detailApartmentController = async (req, res) => {
     .populate("project")
     .populate("axis")
     .populate("balcony_direction")
-    .populate("status");
+    .populate("status")
+    .populate("furnished");
   res.json({ success: true, detail });
 };
 
@@ -192,9 +192,9 @@ const searchApartmentController = async (req, res) => {
     bedrooms,
     axis_id,
   } = req.body;
-  console.log(req.body)
-  const findApartment = await Apartment.find({ });
-  res.json({success: true, data: findApartment})
+  console.log(req.body);
+  const findApartment = await Apartment.find({});
+  res.json({ success: true, data: findApartment });
 };
 
 module.exports = {

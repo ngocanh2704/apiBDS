@@ -1,7 +1,7 @@
 var Project = require("../models/Project");
 var Investors = require("../models/Investors");
 var Status = require("../models/Status");
-var Property = require("../models/Property");
+var Property = require("../models/Properties");
 
 const getAllProjectController = async (req, res) => {
   const allProject = await Project.find({ isDelete: false })
