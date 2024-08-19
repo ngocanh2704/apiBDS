@@ -18,7 +18,7 @@ const createBalconyDirectionController = async (req,res) => {
 
 const deleteBalconyDirectionController = async (req,res) => {
     const {id} = req.body
-    const deleteBalconyDirection = await BalconyDirection.findByIdAndUpdate(id,{isDelete:true})
+    const deleteBalconyDirection = await BalconyDirection.findByIdAndDelete(id)
     res.json({success: true, message:"Trục căn hộ đã được xoá."})
 }
 

@@ -17,7 +17,7 @@ const createStatusController = async (req,res) => {
 
 const deleteStatusController = async (req,res) => {
     const {id} = req.body
-    const deleteStatus = await Status.findByIdAndUpdate(id,{isDelete:true})
+    const deleteStatus = await Status.findByIdAndDelete(id)
     res.json({success: true, message:"Trục căn hộ đã được xoá."})
 }
 

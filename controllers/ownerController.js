@@ -24,7 +24,7 @@ const createOwnerController = async (req,res) => {
 
 const deleteOwnerController = async (req,res) => {
     const {id} = req.body
-    const deleteOwner = await Owner.findByIdAndUpdate(id,{isDelete: false})
+    const deleteOwner = await Owner.findByIdAndDelete(id)
     res.json({success: true, message:"Chủ căn hộ đã được xoá."})
 }
 

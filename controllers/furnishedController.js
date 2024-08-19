@@ -22,7 +22,7 @@ const createFurnishedController = async (req,res) => {
 
 const deleteFurnishedController = async (req,res) => {
     const {id} = req.body
-    const deleteAxis = await Furnished.findByIdAndUpdate(id,{isDelete:true})
+    const deleteAxis = await Furnished.findByIdAndDelete(id)
     res.json({success: true, message:"Trục căn hộ đã được xoá."})
 }
 

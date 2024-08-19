@@ -54,7 +54,7 @@ const createProjectController = async (req, res) => {
 
 const deleteProjectController = async (req, res) => {
   const { id } = req.body;
-  const deleteProject = await Project.findByIdAndUpdate(id, { isDelete: true });
+  const deleteProject = await Project.findByIdAndDelete(id);
   res.json({ success: true, message: "Dự án được xoá thành công." });
 };
 

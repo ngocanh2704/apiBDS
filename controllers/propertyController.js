@@ -22,7 +22,7 @@ const createPropertyController = async (req,res) => {
 
 const deletePropertyController = async (req,res) => {
     const {id} = req.body
-    const deleteProperty = await Properties.findByIdAndUpdate(id,{isDelete:true})
+    const deleteProperty = await Properties.findByIdAndDelete(id)
     res.json({success: true, message:"Trục căn hộ đã được xoá."})
 }
 

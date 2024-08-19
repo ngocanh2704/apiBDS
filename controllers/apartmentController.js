@@ -90,9 +90,7 @@ const createApartmentController = async (req, res) => {
 
 const deleteApartmentController = async (req, res) => {
   const { id } = req.body;
-  const deleteStatus = await Apartment.findByIdAndUpdate(id, {
-    isDelete: false,
-  });
+  const deleteStatus = await Apartment.findByIdAndDelete(id);
   res.json({ success: true, message: "Căn hộ đã được xoá." });
 };
 

@@ -26,7 +26,7 @@ const createBuildingController = async (req,res) => {
 
 const deleteBuildingController = async (req,res) => {
     const {id} = req.body
-    const deleteBuilding = await Building.findByIdAndUpdate(id,{isDelete:true})
+    const deleteBuilding = await Building.findByIdAndDelete(id)
     res.json({success: true, message:"Toà dự án đã được xoá."})
 }
 

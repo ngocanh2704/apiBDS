@@ -40,7 +40,7 @@ const createUserController = async (req, res) => {
 
 const deleteUserController = async (req, res) => {
   const { id } = req.body;
-  const deleteUser = await Users.findByIdAndUpdate(id, { isDelete: true });
+  const deleteUser = await Users.findByIdAndDelete(id);
   res.json({ success: true, message: "User đã được xoá." });
 };
 

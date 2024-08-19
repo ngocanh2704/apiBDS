@@ -22,7 +22,7 @@ const createInvestorController = async (req,res) => {
 
 const deleteInvestorController = async (req,res) => {
     const {id} = req.body
-    const deleteInvestor = await Investors.findByIdAndUpdate(id,{isDelete:false})
+    const deleteInvestor = await Investors.findByIdAndDelete(id)
     res.json({success: true, message:"Chủ đầu tư đã được xoá."})
 }
 

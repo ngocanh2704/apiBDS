@@ -1,9 +1,8 @@
 var EmploymentStatus = require('../models/EmploymentStatus')
 
 const getAllEmploymentStatusController = async (req,res) => {
-    const allEmploymentStatus = await EmploymentStatus.find({isDelete:true})
-    const user =   req.session.user
-    res.render('employmentStatus', {data: allEmploymentStatus,user:user})
+    const allEmploymentStatus = await EmploymentStatus.find({isDelete:false})
+    res.json({success: true, data: allEmploymentStatus})
 }
 
 const createEmploymentStatusController = async (req,res) => {
@@ -36,7 +35,7 @@ const editEmploymentStatusController = async (req,res) => {
 const deleteEmploymentStatusController = async (req,res) => {
     const {id} = req.body
     console.log(id)
-    const deleteEmploymentStatus = await EmploymentStatus.findByIdAndUpdate(id,{isDelete: false})
+    const deleteEmploymentStatus = await EmploymentStatus.findByIdAndDelete(id)
     res.json({success: true, message:"Tình trạng công việc đã được xoá."})
 }
 

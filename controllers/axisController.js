@@ -23,7 +23,7 @@ const createAxisController = async (req,res) => {
 
 const deleteAxisController = async (req,res) => {
     const {id} = req.body
-    const deleteAxis = await Axis.findByIdAndUpdate(id,{isDelete:true})
+    const deleteAxis = await Axis.findByIdAndDelete(id)
     res.json({success: true, message:"Trục căn hộ đã được xoá."})
 }
 
