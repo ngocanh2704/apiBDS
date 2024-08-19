@@ -56,9 +56,9 @@ const corsOpts = {
 
 
 var app = express();
-// app.use(express.json())
+app.use(express.json())
 app.use(cors(corsOpts))
-app.use(cors())
+// app.use(cors())
 
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true}));
