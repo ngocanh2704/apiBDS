@@ -2,6 +2,7 @@ const Apartment = require("../models/Apartment");
 var path = require("path");
 const fs = require("fs");
 const Users = require("../models/Users");
+const ApartmentUser = require('../models/ApartmentUser')
 
 const getAllApartmentController = async (req, res) => {
   const allApartment = await Apartment.find({ isDelete: false })
@@ -237,15 +238,15 @@ const getALlRequest = async (req, res) => {
     isRequest: true,
     isApprove: false,
   })
-  .populate("owner")
-  .populate("properties")
-  .populate("status")
-  .populate("balcony_direction")
-  .populate("project")
-  .populate("furnished")
-  .populate("axis")
-  .populate("building")
-  .sort({ status: 1, color: -1 });
+    .populate("owner")
+    .populate("properties")
+    .populate("status")
+    .populate("balcony_direction")
+    .populate("project")
+    .populate("furnished")
+    .populate("axis")
+    .populate("building")
+    .sort({ status: 1, color: -1 });
   res.json({ success: true, data: allApartmentRequest });
 };
 
@@ -255,20 +256,26 @@ const getALlApprove = async (req, res) => {
     isRequest: true,
     isApprove: true,
   })
-  .populate("owner")
-  .populate("properties")
-  .populate("status")
-  .populate("balcony_direction")
-  .populate("project")
-  .populate("furnished")
-  .populate("axis")
-  .populate("building")
-  .sort({ status: 1, color: -1 });
+    .populate("owner")
+    .populate("properties")
+    .populate("status")
+    .populate("balcony_direction")
+    .populate("project")
+    .populate("furnished")
+    .populate("axis")
+    .populate("building")
+    .sort({ status: 1, color: -1 });
   res.json({ success: true, data: allApartmentApprove });
 }
 const requestData = async (req, res) => {
-  const { id } = req.body;
-  const deleteInvestor = await Apartment.findByIdAndUpdate(
+  const { id, user } = req.body;
+  const newApartment = new ApartmentUser({
+    apartment: id,
+    user: user
+  })
+
+  await newApartment.save()
+  await Apartment.findByIdAndUpdate(
     id,
     { isRequest: true },
     { new: true }
@@ -277,18 +284,29 @@ const requestData = async (req, res) => {
 };
 
 const approveData = async (req, res) => {
-  const { id, user } = req.body;
-  const apartmentFind = await Apartment.findById(id);
-  const userFind = await Users.findById(user);
-  var arr = apartmentFind.user_approve;
-  arr.push({ name: userFind.username, id: user });
+  const { id } = req.body;
   const approveData = await Apartment.findByIdAndUpdate(
     id,
-    { isApprove: true, user_approve: arr },
+    { isApprove: true },
     { new: true }
   );
-  res.json({ success: true, message: "Căn hộ đã đã được yêu cầu " });
+  res.json({ success: true, message: "Căn hộ đã đã được duyệt" });
 };
+
+const getApartmentApproveForUser = async (req, res) => {
+  const { user, role } = req.body
+  var get = ''
+  if (role == 'staff') {
+    get = await ApartmentUser.find({ user: user }).populate({ path: 'apartment', populate: [{ path: 'project'}, {path: 'axis' },{path: 'building' }]})
+  } else {
+    get = await ApartmentUser.find().populate({ path: 'apartment', populate: [{ path: 'project'}, {path: 'axis' },{path: 'building' }] })
+  }
+  var arr = []
+  get.forEach(element => {
+    arr.push(element.apartment)
+  });
+  res.json({ success: true, data: arr })
+}
 
 module.exports = {
   getAllApartmentController,
@@ -304,5 +322,6 @@ module.exports = {
   getALlRequest,
   getALlApprove,
   requestData,
-  approveData
+  approveData,
+  getApartmentApproveForUser
 };

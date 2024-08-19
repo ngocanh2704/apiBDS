@@ -1,14 +1,14 @@
 var express = require('express')
-const { getAllApartmentController, createApartmentController, deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController, getAllKhoMua, getALlRequest, getAllKhoBan, getALlApprove, requestData, approveData } = require('../controllers/apartmentController')
-var router =  express.Router()
+const { getAllApartmentController, createApartmentController,getApartmentApproveForUser ,deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController, getAllKhoMua, getALlRequest, getAllKhoBan, getALlApprove, requestData, approveData } = require('../controllers/apartmentController')
+var router = express.Router()
 
 // @route GET investor
 // @desct Lấy tất cả trục căn hộ
-router.get('/',getAllApartmentController)
+router.get('/', getAllApartmentController)
 router.get('/khosale', getAllKhoBan)
-router.get('/khomua',getAllKhoMua)
-router.get('/request',getALlRequest)
-router.get('/approve',getALlApprove)
+router.get('/khomua', getAllKhoMua)
+router.get('/request', getALlRequest)
+router.get('/approve', getALlApprove)
 
 // @route POST create investor
 // @desc Tạo mới trục căn hộ
@@ -26,8 +26,10 @@ router.post('/detail', detailApartmentController)
 
 router.post('/upload', uploadImageController)
 router.post('/delete-image', deleteImageController)
-router.post('/search',searchApartmentController)
-router.post('/request-data',requestData)
-router.post('/approve-data',approveData)
+router.post('/search', searchApartmentController)
+router.post('/request-data', requestData)
+router.post('/approve-data', approveData)
+// @route Get all apartment for user approve
+router.post('/approve-user', getApartmentApproveForUser)
 
 module.exports = router
