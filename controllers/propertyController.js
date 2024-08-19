@@ -11,7 +11,7 @@ const createPropertyController = async (req,res) => {
     if(propertyName)
         return res.status(400).json({success: false, message: "Tên trục căn hộ đã tồn tại."})
 
-    const newProperty = new Property({
+    const newProperty = new Properties({
         property_name:property_name
     })
     console.log(newProperty)
