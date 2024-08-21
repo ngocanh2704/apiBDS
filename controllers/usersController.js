@@ -63,7 +63,7 @@ const editUserController = async (req, res) => {
 
 const loginUserController = async (req, res) => {
   const { username, password } = req.body;
-  const user = await Users.findOne({ username: username, isDelete: false });
+  const user = await Users.findOne({ username: username, isDelete: false }).populate('employee_ID')
 
   if (!user) {
     return res.status(401).send("Tên đăng nhập không tồn tại.");

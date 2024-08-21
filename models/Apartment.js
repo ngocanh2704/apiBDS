@@ -87,8 +87,8 @@ const ApartmentSchema = new Schema({
     require: true,
   },
   status: {
-    type: Schema.Types.ObjectId,
-    ref: "status",
+    type: Boolean,
+    default: true
   },
   notes: {
     type: String,
