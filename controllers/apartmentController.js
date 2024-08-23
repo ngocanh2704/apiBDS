@@ -14,7 +14,7 @@ const getAllApartmentController = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: 1, color: -1 });
+    .sort({ status: -1, color: -1 });
   res.json({ success: true, data: allApartment });
 };
 
@@ -31,7 +31,7 @@ const getAllKhoBan = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: 1, color: -1 });
+    .sort({ status: -1, color: -1 });
 
   res.json({ success: true, data: allApartmentSalePrice });
 };
@@ -236,7 +236,7 @@ const getAllKhoMua = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: 1, color: -1 });
+    .sort({ status: -1, color: -1 });
   res.json({ success: true, data: allApartmentRentalPrice });
 };
 
@@ -254,7 +254,7 @@ const getALlRequest = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: 1, color: -1 });
+    .sort({ status: -1, color: -1 });
   res.json({ success: true, data: allApartmentRequest });
 };
 
@@ -272,18 +272,24 @@ const getALlApprove = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: 1, color: -1 });
+    .sort({ status: -1, color: -1 });
   res.json({ success: true, data: allApartmentApprove });
 };
 const requestData = async (req, res) => {
   const { id, user } = req.body;
+  var checkRequest = await ApartmentUser.find({ apartment: id, user: user })
+  if (checkRequest.length != 0) {
+    return res.json({ success: false, message: 'Căn hộ yêu cầu đã tồn tại.' })
+  }
   const newApartment = new ApartmentUser({
     apartment: id,
     user: user,
   });
 
   await newApartment.save();
-  await Apartment.findByIdAndUpdate(id, { isRequest: true }, { new: true });
+
+  const requestApartment = await Apartment.findByIdAndUpdate(id, { isRequest: true }, { new: true });
+
   res.json({ success: true, message: "Căn hộ đã đã được yêu cầu " });
 };
 
@@ -307,9 +313,9 @@ const getApartmentApproveForUser = async (req, res) => {
     });
   } else {
     get = await ApartmentUser.find().populate({
-      path: "apartment",
+      path: "apartment", options: { sort: { status: 1, color: -1 } },
       populate: [{ path: "project" }, { path: "axis" }, { path: "building" }],
-    });
+    })
   }
   var arr = [];
   get.forEach((element) => {

@@ -10,14 +10,6 @@ const ApartmentUserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    isRequest: {
-        type: Boolean,
-        default: false,
-    },
-    isApprove: {
-        type: Boolean,
-        default: false,
-    },
     createAt: {
         type: Date,
         default: Date.now
