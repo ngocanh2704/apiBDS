@@ -14,7 +14,7 @@ const getAllApartmentController = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: -1});
+    .sort({ status: -1 });
   res.json({ success: true, data: allApartment });
 };
 
@@ -31,7 +31,7 @@ const getAllKhoBan = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: -1});
+    .sort({ status: -1 });
 
   res.json({ success: true, data: allApartmentSalePrice });
 };
@@ -236,7 +236,7 @@ const getAllKhoMua = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: -1});
+    .sort({ status: -1 });
   res.json({ success: true, data: allApartmentRentalPrice });
 };
 
@@ -254,7 +254,7 @@ const getALlRequest = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: -1});
+    .sort({ status: -1 });
   res.json({ success: true, data: allApartmentRequest });
 };
 
@@ -272,7 +272,7 @@ const getALlApprove = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .populate("building")
-    .sort({ status: -1});
+    .sort({ status: -1 });
   res.json({ success: true, data: allApartmentApprove });
 };
 const requestData = async (req, res) => {
@@ -290,7 +290,7 @@ const requestData = async (req, res) => {
 
   const requestApartment = await Apartment.findByIdAndUpdate(
     id,
-    { isRequest: true },
+    { isRequest: true, isApprove: false },
     { new: true }
   );
 
@@ -313,18 +313,24 @@ const getApartmentApproveForUser = async (req, res) => {
   if (role == "staff") {
     get = await ApartmentUser.find({ user: user }).populate({
       path: "apartment",
+      options: { sort: { status: 1 } },
       populate: [{ path: "project" }, { path: "axis" }, { path: "building" }],
     });
   } else {
     get = await ApartmentUser.find().populate({
-      path: "apartment",select: { isDelete: false,isRequest: true, isApprove: true},
-      options: { sort: { status: 1} },
+      path: "apartment",
+      options: { sort: { status: 1 } },
       populate: [{ path: "project" }, { path: "axis" }, { path: "building" }],
     });
   }
   var arr = [];
   get.forEach((element) => {
-    arr.push(element.apartment);
+    if (
+      (element.apartment.isRequest == true) &
+      (element.apartment.isApprove == true)
+    ) {
+      arr.push(element.apartment);
+    }
   });
   res.json({ success: true, data: arr });
 };

@@ -12,8 +12,9 @@ const ApartmentUserSchema = new Schema({
     },
     createAt: {
         type: Date,
+        expires: '10s',
+        index: true,
         default: Date.now
     }
 })
-
 module.exports = mongoose.model('apartmentuser', ApartmentUserSchema)
