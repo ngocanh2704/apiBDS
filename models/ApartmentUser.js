@@ -12,7 +12,7 @@ const ApartmentUserSchema = new Schema({
     },
     createAt: {
         type: Date,
-        expires: '10s',
+        expires: '24h',
         index: true,
         default: Date.now
     }
