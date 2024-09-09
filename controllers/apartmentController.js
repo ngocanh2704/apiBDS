@@ -32,8 +32,6 @@ const getAllKhoBan = async (req, res) => {
     .populate("axis")
     .populate("building")
     .sort({ status: -1 });
-
-    console.log(allApartmentSalePrice)
   res.json({ success: true, data: allApartmentSalePrice });
 };
 
@@ -335,8 +333,15 @@ const getApartmentApproveForUser = async (req, res) => {
   });
   res.json({ success: true, data: arr });
 };
-const changeStatusApartment = (req, res) => {
-  console.log(req)
+const changeStatusApartment = async (req, res) => {
+  const { id, status } = req.body;
+  if (status == true){
+    const findStatus = await Apartment.findByIdAndUpdate(id,{status: status, color: '#ffffff'}, {new: true});
+  } else {
+    const findStatus = await Apartment.findByIdAndUpdate(id,{status: status, color: '#bfbfbf'}, {new: true});
+  }
+
+  res.json({success: true, message: 'Đã thay đổi trạng thái!'})
 }
 
 module.exports = {

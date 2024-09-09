@@ -178,6 +178,7 @@ app.use('/apartment/upload', apartmentRouter)
 app.use('/apartment/delete-image', apartmentRouter)
 app.use('/apartment/search', apartmentRouter)
 app.use('/apartment/khosale', apartmentRouter);
+app.use('/apartment/khomua', apartmentRouter);
 app.use('/apartment/approve', apartmentRouter);
 app.use('/apartment/request-data', apartmentRouter);
 app.use('/apartment/approve-data', apartmentRouter);
