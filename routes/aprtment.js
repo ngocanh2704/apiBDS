@@ -1,5 +1,5 @@
 var express = require('express')
-const { getAllApartmentController, createApartmentController,getApartmentApproveForUser ,deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController, getAllKhoMua, getALlRequest, getAllKhoBan, getALlApprove, requestData, approveData } = require('../controllers/apartmentController')
+const { getAllApartmentController, createApartmentController,getApartmentApproveForUser ,deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController, getAllKhoMua, getALlRequest, getAllKhoBan, getALlApprove, requestData, approveData, changeStatusApartment } = require('../controllers/apartmentController')
 var router = express.Router()
 
 // @route GET investor
@@ -31,5 +31,6 @@ router.post('/request-data', requestData)
 router.post('/approve-data', approveData)
 // @route Get all apartment for user approve
 router.post('/approve-user', getApartmentApproveForUser)
+router.post('/change-status', changeStatusApartment)
 
 module.exports = router

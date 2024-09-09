@@ -182,6 +182,7 @@ app.use('/apartment/approve', apartmentRouter);
 app.use('/apartment/request-data', apartmentRouter);
 app.use('/apartment/approve-data', apartmentRouter);
 app.use('/apartment/approve-user', apartmentRouter);
+app.use('/apartment/change-status', apartmentRouter)
 
 
 app.use('/image', imageRouter)

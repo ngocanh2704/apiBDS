@@ -21,7 +21,7 @@ const getAllApartmentController = async (req, res) => {
 const getAllKhoBan = async (req, res) => {
   const allApartmentSalePrice = await Apartment.find({
     isDelete: false,
-    rental_price: 0,
+    sale_price: {$gt: 0}
   })
     .populate("owner")
     .populate("properties")
@@ -33,6 +33,7 @@ const getAllKhoBan = async (req, res) => {
     .populate("building")
     .sort({ status: -1 });
 
+    console.log(allApartmentSalePrice)
   res.json({ success: true, data: allApartmentSalePrice });
 };
 
@@ -226,7 +227,7 @@ const searchApartmentController = async (req, res) => {
 const getAllKhoMua = async (req, res) => {
   const allApartmentRentalPrice = await Apartment.find({
     isDelete: false,
-    sale_price: 0,
+    rental_price: {$gt: 0},
   })
     .populate("owner")
     .populate("properties")
@@ -334,6 +335,9 @@ const getApartmentApproveForUser = async (req, res) => {
   });
   res.json({ success: true, data: arr });
 };
+const changeStatusApartment = (req, res) => {
+  console.log(req)
+}
 
 module.exports = {
   getAllApartmentController,
@@ -351,4 +355,5 @@ module.exports = {
   requestData,
   approveData,
   getApartmentApproveForUser,
+  changeStatusApartment
 };
