@@ -21,7 +21,7 @@ const getAllApartmentController = async (req, res) => {
 const getAllKhoBan = async (req, res) => {
   const allApartmentSalePrice = await Apartment.find({
     isDelete: false,
-    sale_price: {$gt: 0}
+    sale_price: { $gt: 0 },
   })
     .populate("owner")
     .populate("properties")
@@ -163,19 +163,21 @@ const detailApartmentController = async (req, res) => {
 };
 
 const uploadImageController = async (req, res) => {
-  const { file } = req.files;
+  const { files } = req.files;
   const { id } = req.body;
   const image = await Apartment.findById(id, { isDelete: false });
   var arr = image.image;
   if (image.image.length >= 0) {
-    var stt = image.image.length + 1;
-    file.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
-    arr.push("/upload/" + id + stt + ".png");
+    files.forEach((file) => {
+      var stt = image.image.length + 1;
+      file.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
+      arr.push("/upload/" + id + stt + ".png");
+    });
   }
   const updateImage = await Apartment.findByIdAndUpdate(id, {
     image: arr,
   });
-  res.json({ succses: true, message: "Upload thành công", image: arr });
+  res.json({ succses: true, message: "Upload thành công" , image: arr});
 };
 
 const deleteImageController = async (req, res) => {
@@ -225,7 +227,7 @@ const searchApartmentController = async (req, res) => {
 const getAllKhoMua = async (req, res) => {
   const allApartmentRentalPrice = await Apartment.find({
     isDelete: false,
-    rental_price: {$gt: 0},
+    rental_price: { $gt: 0 },
   })
     .populate("owner")
     .populate("properties")
@@ -335,14 +337,22 @@ const getApartmentApproveForUser = async (req, res) => {
 };
 const changeStatusApartment = async (req, res) => {
   const { id, status } = req.body;
-  if (status == true){
-    const findStatus = await Apartment.findByIdAndUpdate(id,{status: status, color: '#ffffff'}, {new: true});
+  if (status == true) {
+    const findStatus = await Apartment.findByIdAndUpdate(
+      id,
+      { status: status, color: "#ffffff" },
+      { new: true }
+    );
   } else {
-    const findStatus = await Apartment.findByIdAndUpdate(id,{status: status, color: '#bfbfbf'}, {new: true});
+    const findStatus = await Apartment.findByIdAndUpdate(
+      id,
+      { status: status, color: "#bfbfbf" },
+      { new: true }
+    );
   }
 
-  res.json({success: true, message: 'Đã thay đổi trạng thái!'})
-}
+  res.json({ success: true, message: "Đã thay đổi trạng thái!" });
+};
 
 module.exports = {
   getAllApartmentController,
@@ -360,5 +370,5 @@ module.exports = {
   requestData,
   approveData,
   getApartmentApproveForUser,
-  changeStatusApartment
+  changeStatusApartment,
 };
