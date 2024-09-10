@@ -168,11 +168,17 @@ const uploadImageController = async (req, res) => {
   const image = await Apartment.findById(id, { isDelete: false });
   var arr = image.image;
   if (image.image.length >= 0) {
-    files.forEach((file) => {
+    if(Array.isArray(files)){
+      files.forEach((file) => {
+        var stt = image.image.length + 1;
+        file.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
+        arr.push("/upload/" + id + stt + ".png");
+      });
+    }else {
       var stt = image.image.length + 1;
-      file.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
-      arr.push("/upload/" + id + stt + ".png");
-    });
+        files.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
+        arr.push("/upload/" + id + stt + ".png");
+    }
   }
   const updateImage = await Apartment.findByIdAndUpdate(id, {
     image: arr,
