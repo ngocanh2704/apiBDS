@@ -60,15 +60,15 @@ const createApartmentController = async (req, res) => {
     color,
   } = req.body;
 
-  const checkApartment = await Apartment.find({
+  const checkApartment = await Apartment.findOne({
     project: project,
-    floor: floor,
     axis: axis,
+    floor: floor,
   });
-  // console.log(checkApartment);
-  // if (checkApartment) {
-  //   res.status().json({ success: false, message: "Căn hộ đã tồn tại" });
-  // }
+  console.log(checkApartment);
+  if (checkApartment) {
+    return res.status(500).json({ success: false, message: "Căn hộ đã tồn tại." });
+  }
 
   const newApartment = new Apartment({
     building: building,
