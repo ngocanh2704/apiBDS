@@ -65,10 +65,10 @@ const createApartmentController = async (req, res) => {
     floor: floor,
     axis: axis,
   });
-  console.log(checkApartment);
-  if (checkApartment) {
-    res.status().json({ success: false, message: "Căn hộ đã tồn tại" });
-  }
+  // console.log(checkApartment);
+  // if (checkApartment) {
+  //   res.status().json({ success: false, message: "Căn hộ đã tồn tại" });
+  // }
 
   const newApartment = new Apartment({
     building: building,
