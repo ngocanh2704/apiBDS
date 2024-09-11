@@ -60,6 +60,16 @@ const createApartmentController = async (req, res) => {
     color,
   } = req.body;
 
+  const checkApartment = await Apartment.find({
+    project: project,
+    floor: floor,
+    axis: axis,
+  });
+  console.log(checkApartment);
+  if (checkApartment) {
+    res.status().json({ success: false, message: "Căn hộ đã tồn tại" });
+  }
+
   const newApartment = new Apartment({
     building: building,
     phone_number: phone_number,
@@ -168,22 +178,22 @@ const uploadImageController = async (req, res) => {
   const image = await Apartment.findById(id, { isDelete: false });
   var arr = image.image;
   if (image.image.length >= 0) {
-    if(Array.isArray(files)){
+    if (Array.isArray(files)) {
       files.forEach((file) => {
         var stt = image.image.length + 1;
         file.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
         arr.push("/upload/" + id + stt + ".png");
       });
-    }else {
+    } else {
       var stt = image.image.length + 1;
-        files.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
-        arr.push("/upload/" + id + stt + ".png");
+      files.mv(path.join(__dirname, "../public/upload/") + id + stt + ".png");
+      arr.push("/upload/" + id + stt + ".png");
     }
   }
   const updateImage = await Apartment.findByIdAndUpdate(id, {
     image: arr,
   });
-  res.json({ succses: true, message: "Upload thành công" , image: arr});
+  res.json({ succses: true, message: "Upload thành công", image: arr });
 };
 
 const deleteImageController = async (req, res) => {
@@ -226,7 +236,23 @@ const searchApartmentController = async (req, res) => {
     bedrooms: bedrooms,
     axis: axis_id,
   };
-  const findApartment = await Apartment.find({}, { projection });
+  const conditions = Object.keys(projection).reduce((result, key) => {
+    if (projection[key]) {
+      result[key] = projection[key];
+    }
+    return result;
+  }, {});
+  const findApartment = await Apartment.find(conditions) .populate("owner")
+  .populate("properties")
+  .populate("status")
+  .populate("balcony_direction")
+  .populate("project")
+  .populate("furnished")
+  .populate("axis")
+  .populate("building")
+  .sort({ status: -1 });
+
+  console.log(findApartment)
   res.json({ success: true, data: findApartment });
 };
 
