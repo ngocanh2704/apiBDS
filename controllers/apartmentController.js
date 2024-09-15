@@ -67,7 +67,9 @@ const createApartmentController = async (req, res) => {
   });
   console.log(checkApartment);
   if (checkApartment) {
-    return res.status(500).json({ success: false, message: "Căn hộ đã tồn tại." });
+    return res
+      .status(500)
+      .json({ success: false, message: "Căn hộ đã tồn tại." });
   }
 
   const newApartment = new Apartment({
@@ -242,17 +244,20 @@ const searchApartmentController = async (req, res) => {
     }
     return result;
   }, {});
-  const findApartment = await Apartment.find(conditions) .populate("owner")
-  .populate("properties")
-  .populate("status")
-  .populate("balcony_direction")
-  .populate("project")
-  .populate("furnished")
-  .populate("axis")
-  .populate("building")
-  .sort({ status: -1 });
+  // conditions['rental_price'] = {$gt: 0}
+  const findApartment = await Apartment.find(conditions)
+    .populate("owner")
+    .populate("properties")
+    .populate("status")
+    .populate("balcony_direction")
+    .populate("project")
+    .populate("furnished")
+    .populate("axis")
+    .populate("building")
+    .sort({ status: -1 })
+    .or([{ $and: [{ rental_price: { $gt: 0 } }] }]);
 
-  console.log(findApartment)
+  console.log(findApartment);
   res.json({ success: true, data: findApartment });
 };
 
