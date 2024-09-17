@@ -37,6 +37,7 @@ const getAllKhoBan = async (req, res) => {
 
 const createApartmentController = async (req, res) => {
   const {
+    apartment_name,
     area,
     axis,
     balconies,
@@ -61,11 +62,9 @@ const createApartmentController = async (req, res) => {
   } = req.body;
 
   const checkApartment = await Apartment.findOne({
-    project: project,
-    axis: axis,
-    floor: floor,
+    apartment_name: apartment_name,
   });
-  console.log(checkApartment);
+  console.log(checkApartment)
   if (checkApartment) {
     return res
       .status(500)
@@ -73,6 +72,7 @@ const createApartmentController = async (req, res) => {
   }
 
   const newApartment = new Apartment({
+    apartment_name: apartment_name,
     building: building,
     phone_number: phone_number,
     project: project,
@@ -108,6 +108,7 @@ const deleteApartmentController = async (req, res) => {
 
 const editApartmentController = async (req, res) => {
   const {
+    apartment_name: apartment_name,
     id,
     building,
     axis,
@@ -135,6 +136,7 @@ const editApartmentController = async (req, res) => {
   const editApartment = await Apartment.findByIdAndUpdate(
     id,
     {
+      apartment_name: apartment_name,
       building: building,
       phone_number: phone_number,
       project: project,
