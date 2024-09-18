@@ -443,25 +443,25 @@ const importExcelApartmentController = async (req, res) => {
     var element = newData[i];
     var project = await Project.findOne({
       project_name: { $regex: element.project_name, $options: "i" },
-    }).select("_id");
+    })
     var building = await Building.findOne({
       building_name: { $regex: element.building_name, $options: "i" },
-    }).select("_id");
+    })
     var axis = await Axis.findOne({
       axis_name: { $regex: element.axis_name, $options: "i" },
-    }).select("_id");
+    })
     var property = await Properties.findOne({
       property_name: { $regex: element.property_name, $options: "i" },
-    }).select("_id");
+    })
     var balcony_direction = await BalconyDirection.findOne({
       balcony_direction_name: {
         $regex: element.balcony_direction,
         $options: "i",
       },
-    }).select("_id");
+    })
     var furnished = await Furnished.findOne({
       furnished_name: { $regex: element.furnished, $options: "i" },
-    }).select("_id");
+    })
 
     var apartment_name =
       element.building_name + element.floor + element.axis_name;
@@ -495,7 +495,61 @@ const importExcelApartmentController = async (req, res) => {
       color: "#ffffff",
     };
 
-    if (checkApartment) {
+    if(project == null) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Dự án không đúng";
+      arrResult.push(values);
+    } else if(building == null) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Toà nhà không đúng";
+      arrResult.push(values);
+    } else if(axis == null) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Trục không đúng";
+      arrResult.push(values);
+    } else if(property == null) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Loại BDS không đúng";
+      arrResult.push(values);
+    } else if(balcony_direction == null) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Hướng không đúng";
+      arrResult.push(values);
+    } else if(furnished == null) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Nội thất không đúng";
+      arrResult.push(values);
+    } else if (checkApartment) {
       delete values.building_name;
       values.project = element.project_name;
       values.axis = element.axis_name;
