@@ -463,7 +463,7 @@ const importExcelApartmentController = async (req, res) => {
       furnished_name: { $regex: element.furnished, $options: "i" },
     })
 
-    console.log(furnished)
+    console.log(element.furnished)
 
     var apartment_name =
       element.building_name + element.floor + element.axis_name;
