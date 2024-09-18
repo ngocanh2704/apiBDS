@@ -3,6 +3,13 @@ var path = require("path");
 const fs = require("fs");
 const Users = require("../models/Users");
 const ApartmentUser = require("../models/ApartmentUser");
+var XLSX = require("xlsx");
+const Project = require("../models/Project");
+const Building = require("../models/Building");
+const Axis = require("../models/Axis");
+const Properties = require("../models/Properties");
+const BalconyDirection = require("../models/BalconyDirection");
+const Furnished = require("../models/Furnished");
 
 const getAllApartmentController = async (req, res) => {
   const allApartment = await Apartment.find({ isDelete: false })
@@ -64,7 +71,6 @@ const createApartmentController = async (req, res) => {
   const checkApartment = await Apartment.findOne({
     apartment_name: apartment_name,
   });
-  console.log(checkApartment)
   if (checkApartment) {
     return res
       .status(500)
@@ -393,6 +399,127 @@ const changeStatusApartment = async (req, res) => {
   res.json({ success: true, message: "Đã thay đổi trạng thái!" });
 };
 
+const importExcelApartmentController = async (req, res) => {
+  const { file } = req.files;
+
+  const header = [
+    "project_name",
+    "building_name",
+    "floor",
+    "axis_name",
+    "owner",
+    "phone_number",
+    "property_name",
+    "area",
+    "bedrooms",
+    "bathrooms",
+    "sale_price",
+    "rental_price",
+    "available_from",
+    "available_until",
+    "furnished",
+    "balconies",
+    "balcony_direction",
+    "notes",
+    "last_updated",
+    "color",
+  ];
+  await file.mv(
+    path.join(__dirname, "../public/upload/") + "import_excel.xlsx"
+  );
+  var workbook = await XLSX.readFile(
+    path.join(__dirname, "../public/upload/") + "import_excel.xlsx"
+  );
+  var sheet_name_list = workbook.SheetNames;
+  var xlData = await XLSX.utils.sheet_to_json(
+    workbook.Sheets[sheet_name_list[0]],
+    { header: header }
+  );
+  var newData = xlData.slice(1);
+
+  const arrResult = [];
+
+  for (let i = 0; i < newData.length; i++) {
+    var element = newData[i];
+    var project = await Project.findOne({
+      project_name: { $regex: element.project_name, $options: "i" },
+    }).select("_id");
+    var building = await Building.findOne({
+      building_name: { $regex: element.building_name, $options: "i" },
+    }).select("_id");
+    var axis = await Axis.findOne({
+      axis_name: { $regex: element.axis_name, $options: "i" },
+    }).select("_id");
+    var property = await Properties.findOne({
+      property_name: { $regex: element.property_name, $options: "i" },
+    }).select("_id");
+    var balcony_direction = await BalconyDirection.findOne({
+      balcony_direction_name: {
+        $regex: element.balcony_direction,
+        $options: "i",
+      },
+    }).select("_id");
+    var furnished = await Furnished.findOne({
+      furnished_name: { $regex: element.furnished, $options: "i" },
+    }).select("_id");
+
+    var apartment_name =
+      element.building_name + element.floor + element.axis_name;
+
+    const checkApartment = await Apartment.findOne({
+      apartment_name: apartment_name,
+    });
+
+    var values = {
+      apartment_name: apartment_name,
+      building: building._id,
+      phone_number: element.phone_number,
+      project: project._id,
+      axis: axis._id,
+      owner: element.owner,
+      properties: property._id,
+      floor: element.floor,
+      area: element.area,
+      bedrooms: element.bedrooms,
+      bathrooms: element.bathrooms,
+      sale_price: element.sale_price,
+      rental_price: element.rental_price,
+      available_from: element.available_from,
+      available_until: element.available_until,
+      furnished: furnished._id,
+      balconies: element.balconies,
+      balcony_direction: balcony_direction._id,
+      last_updated: element.last_updated,
+      status: true,
+      notes: element.notes,
+      color: "#ffffff",
+    };
+
+    if (checkApartment) {
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Đã có trong dữ liệu";
+      arrResult.push(values);
+    } else {
+      const newApartment = new Apartment(values);
+      await newApartment.save();
+      delete values.building_name;
+      values.project = element.project_name;
+      values.axis = element.axis_name;
+      values.properties = element.property_name;
+      values.furnished = element.furnished_name;
+      values.balcony_direction = element.balcony_direction_name;
+      values.result = "Thành công";
+      arrResult.push(values);
+    }
+  }
+  res.json({ success: true, message: "Dữ liệu đã được nhập", arrResult });
+};
+
 module.exports = {
   getAllApartmentController,
   createApartmentController,
@@ -410,4 +537,5 @@ module.exports = {
   approveData,
   getApartmentApproveForUser,
   changeStatusApartment,
+  importExcelApartmentController,
 };
