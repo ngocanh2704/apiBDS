@@ -463,6 +463,43 @@ const importExcelApartmentController = async (req, res) => {
       furnished_name: { $regex: element.furnished, $options: "i" },
     });
 
+    if (project == null) {
+      return res.status(500).json({
+        success: false,
+        message: `Dự án không có trong dữ liệu dòng ${i}`,
+      });
+    }
+    if(building == null) {
+      return res.status(500).json({
+        success: false,
+        message: `Toà không có trong dữ liệu dòng ${i}`,
+      });
+    }
+    if(axis == null) {
+      return res.status(500).json({
+        success: false,
+        message: `Trục căn không có trong dữ liệu dòng ${i}`,
+      });
+    }
+    if(property == null) {
+      return res.status(500).json({
+        success: false,
+        message: `Loại BDS không có trong dữ liệu dòng ${i}`,
+      });
+    }
+    if(balcony_direction == null) {
+      return res.status(500).json({
+        success: false,
+        message: `Hướng ban công không có trong dữ liệu dòng ${i}`,
+      });
+    }
+    if(furnished == null) {
+      return res.status(500).json({
+        success: false,
+        message: `Nội thất không có trong dữ liệu dòng ${i}`,
+      });
+    }
+
     var apartment_name =
       element.building_name + element.floor + element.axis_name;
 
@@ -496,7 +533,7 @@ const importExcelApartmentController = async (req, res) => {
     };
 
     if (checkApartment) {
-      values.building = element.building_name
+      values.building = element.building_name;
       values.project = element.project_name;
       values.axis = element.axis_name;
       values.properties = element.property_name;
@@ -507,7 +544,7 @@ const importExcelApartmentController = async (req, res) => {
     } else {
       const newApartment = new Apartment(values);
       await newApartment.save();
-      values.building = element.building_name
+      values.building = element.building_name;
       values.project = element.project_name;
       values.axis = element.axis_name;
       values.properties = element.property_name;
