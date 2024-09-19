@@ -466,37 +466,37 @@ const importExcelApartmentController = async (req, res) => {
     if (project == null) {
       return res.status(500).json({
         success: false,
-        message: `Dự án không có trong dữ liệu dòng ${i}`,
+        message: `Dự án không có trong dữ liệu dòng ${i+2}`,
       });
     }
     if(building == null) {
       return res.status(500).json({
         success: false,
-        message: `Toà không có trong dữ liệu dòng ${i}`,
+        message: `Toà không có trong dữ liệu dòng ${i+2}`,
       });
     }
     if(axis == null) {
       return res.status(500).json({
         success: false,
-        message: `Trục căn không có trong dữ liệu dòng ${i}`,
+        message: `Trục căn không có trong dữ liệu dòng ${i+2}`,
       });
     }
     if(property == null) {
       return res.status(500).json({
         success: false,
-        message: `Loại BDS không có trong dữ liệu dòng ${i}`,
+        message: `Loại BDS không có trong dữ liệu dòng ${i+2}`,
       });
     }
     if(balcony_direction == null) {
       return res.status(500).json({
         success: false,
-        message: `Hướng ban công không có trong dữ liệu dòng ${i}`,
+        message: `Hướng ban công không có trong dữ liệu dòng ${i+2}`,
       });
     }
     if(furnished == null) {
       return res.status(500).json({
         success: false,
-        message: `Nội thất không có trong dữ liệu dòng ${i}`,
+        message: `Nội thất không có trong dữ liệu dòng ${i+2}`,
       });
     }
 
