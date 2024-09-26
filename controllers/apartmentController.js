@@ -252,20 +252,16 @@ const searchApartmentController = async (req, res) => {
     }
     return result;
   }, {});
-  // conditions['rental_price'] = {$gt: 0}
   const findApartment = await Apartment.find(conditions)
-    .populate("owner")
-    .populate("properties")
-    .populate("status")
-    .populate("balcony_direction")
     .populate("project")
+    .populate("building")
+    .populate("properties")
+    .populate("balcony_direction")
     .populate("furnished")
     .populate("axis")
-    .populate("building")
     .sort({ status: -1 })
-    .or([{ $and: [{ rental_price: { $gt: 0 } }] }]);
+  //   .or([{ $and: [{ rental_price: { $gt: 0 } }] }]);
 
-  console.log(findApartment);
   res.json({ success: true, data: findApartment });
 };
 
@@ -466,37 +462,37 @@ const importExcelApartmentController = async (req, res) => {
     if (project == null) {
       return res.status(500).json({
         success: false,
-        message: `Dự án không có trong dữ liệu dòng ${i+2}`,
+        message: `Dự án không có trong dữ liệu dòng ${i + 2}`,
       });
     }
-    if(building == null) {
+    if (building == null) {
       return res.status(500).json({
         success: false,
-        message: `Toà không có trong dữ liệu dòng ${i+2}`,
+        message: `Toà không có trong dữ liệu dòng ${i + 2}`,
       });
     }
-    if(axis == null) {
+    if (axis == null) {
       return res.status(500).json({
         success: false,
-        message: `Trục căn không có trong dữ liệu dòng ${i+2}`,
+        message: `Trục căn không có trong dữ liệu dòng ${i + 2}`,
       });
     }
-    if(property == null) {
+    if (property == null) {
       return res.status(500).json({
         success: false,
-        message: `Loại BDS không có trong dữ liệu dòng ${i+2}`,
+        message: `Loại BDS không có trong dữ liệu dòng ${i + 2}`,
       });
     }
-    if(balcony_direction == null) {
+    if (balcony_direction == null) {
       return res.status(500).json({
         success: false,
-        message: `Hướng ban công không có trong dữ liệu dòng ${i+2}`,
+        message: `Hướng ban công không có trong dữ liệu dòng ${i + 2}`,
       });
     }
-    if(furnished == null) {
+    if (furnished == null) {
       return res.status(500).json({
         success: false,
-        message: `Nội thất không có trong dữ liệu dòng ${i+2}`,
+        message: `Nội thất không có trong dữ liệu dòng ${i + 2}`,
       });
     }
 
