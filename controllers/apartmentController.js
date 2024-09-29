@@ -69,6 +69,7 @@ const createApartmentController = async (req, res) => {
   } = req.body;
 
   const checkApartment = await Apartment.findOne({
+    project: project,
     apartment_name: apartment_name,
   });
   if (checkApartment) {
