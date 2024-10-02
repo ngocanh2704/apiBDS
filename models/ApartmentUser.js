@@ -10,6 +10,10 @@ const ApartmentUserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    isRequest:{
+        type: Boolean,
+        default: false
+    },
     createAt: {
         type: Date,
         expires: '24h',

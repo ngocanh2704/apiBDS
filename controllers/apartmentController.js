@@ -284,38 +284,21 @@ const getAllKhoMua = async (req, res) => {
 };
 
 const getALlRequest = async (req, res) => {
-  const allApartmentRequest = await Apartment.find({
-    isDelete: false,
-    isRequest: true,
-    isApprove: false,
+  const allApartmentRequest = await ApartmentUser.find({ isRequest: false }).populate({
+    path: "apartment",
+    options: { sort: { status: -1 } },
+    populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
   })
-    .populate("owner")
-    .populate("properties")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("furnished")
-    .populate("axis")
-    .populate("building")
-    .sort({ status: -1 });
   res.json({ success: true, data: allApartmentRequest });
 };
 
 const getALlApprove = async (req, res) => {
-  const allApartmentApprove = await Apartment.find({
-    isDelete: false,
-    isRequest: true,
-    isApprove: true,
+  console.log(req.body)
+  const allApartmentApprove =await ApartmentUser.find({ isRequest: true }).populate({
+    path: "apartment",
+    options: { sort: { status: -1 } },
+    populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
   })
-    .populate("owner")
-    .populate("properties")
-    .populate("status")
-    .populate("balcony_direction")
-    .populate("project")
-    .populate("furnished")
-    .populate("axis")
-    .populate("building")
-    .sort({ status: -1 });
   res.json({ success: true, data: allApartmentApprove });
 };
 const requestData = async (req, res) => {
@@ -342,9 +325,10 @@ const requestData = async (req, res) => {
 
 const approveData = async (req, res) => {
   const { id } = req.body;
-  const approveData = await Apartment.findByIdAndUpdate(
+  console.log(id)
+  const approveData = await ApartmentUser.findByIdAndUpdate(
     id,
-    { isApprove: true },
+    { isRequest: true },
     { new: true }
   );
   res.json({ success: true, message: "Căn hộ đã đã được duyệt" });
@@ -354,28 +338,19 @@ const getApartmentApproveForUser = async (req, res) => {
   const { user, role } = req.body;
   var get = "";
   if (role == "staff") {
-    get = await ApartmentUser.find({ user: user }).populate({
+    get = await ApartmentUser.find({ user: user, isRequest: true }).populate({
       path: "apartment",
       options: { sort: { status: 1 } },
-      populate: [{ path: "project" }, { path: "axis" }, { path: "building" }],
+      populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
     });
   } else {
-    get = await ApartmentUser.find().populate({
+    get = await ApartmentUser.find({isRequest: true}).populate({
       path: "apartment",
       options: { sort: { status: 1 } },
-      populate: [{ path: "project" }, { path: "axis" }, { path: "building" }],
+      populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
     });
   }
-  var arr = [];
-  get.forEach((element) => {
-    if (
-      (element.apartment.isRequest == true) &
-      (element.apartment.isApprove == true)
-    ) {
-      arr.push(element.apartment);
-    }
-  });
-  res.json({ success: true, data: arr });
+  res.json({ success: true, data: get });
 };
 const changeStatusApartment = async (req, res) => {
   const { id, status } = req.body;
