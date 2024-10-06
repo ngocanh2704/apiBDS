@@ -87,7 +87,6 @@ const loginUserController = async (req, res) => {
 
 const detailUserController = async (req, res) => {
   const { id } = req.body;
-  console.log(id);
   const user = await Users.findById(id, { isDelete: false }).populate(
     "employee_ID"
   );

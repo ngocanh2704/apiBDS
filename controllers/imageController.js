@@ -13,8 +13,7 @@ const getAllImageController = async (req, res) => {
   const allProject = await Project.find({ isDelete: false });
   const allBuilding = await Building.find({ isDelete: true });
   const allApartment = await Apartment.find({ isDelete: false });
-  console.log(allApartment)
-  console.log(allImage)
+
   const user =   req.session.user
   res.render("image", {
     data: allImage,

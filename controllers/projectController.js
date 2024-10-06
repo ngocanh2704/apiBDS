@@ -14,7 +14,6 @@ const getAllProjectController = async (req, res) => {
   res.json({ success: true, data: allProject });
 };
 const createProjectController = async (req, res) => {
-  console.log(req.body);
   const {
     project_name,
     investor,
@@ -71,19 +70,6 @@ const editProjectController = async (req, res) => {
     total_units,
     property,
   } = req.body;
-
-  console.log(
-    id,
-    project_name,
-    investor,
-    location,
-    description,
-    status,
-    start_date,
-    completion_date,
-    total_units,
-    property
-  );
 
   const editProject = await Project.findByIdAndUpdate(
     id,

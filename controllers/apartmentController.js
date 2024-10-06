@@ -13,32 +13,29 @@ const Furnished = require("../models/Furnished");
 
 const getAllApartmentController = async (req, res) => {
   const allApartment = await Apartment.find({ isDelete: false })
-    .populate("owner")
-    .populate("properties")
-    .populate("status")
-    .populate("balcony_direction")
     .populate("project")
-    .populate("furnished")
-    .populate("axis")
     .populate("building")
-    .sort({ status: -1 });
+    .populate("properties")
+    .populate("balcony_direction")
+    .populate("furnished")
+    .populate("axis");
   res.json({ success: true, data: allApartment });
 };
 
 const getAllKhoBan = async (req, res) => {
   const allApartmentSalePrice = await Apartment.find({
     isDelete: false,
-    sale_price: { $gt: 0 },
+    sale_price: { '$gt': 0 },
   })
-    .populate("owner")
-    .populate("properties")
-    .populate("status")
-    .populate("balcony_direction")
     .populate("project")
-    .populate("furnished")
-    .populate("axis")
     .populate("building")
-    .sort({ status: -1 });
+    .populate("properties")
+    .populate("balcony_direction")
+    .populate("furnished")
+    .populate("axis");
+
+  console.log(allApartmentSalePrice.length);
+
   res.json({ success: true, data: allApartmentSalePrice });
 };
 
@@ -173,7 +170,6 @@ const editApartmentController = async (req, res) => {
 
 const detailApartmentController = async (req, res) => {
   const { id } = req.body;
-  console.log(id);
   const detail = await Apartment.findById(id, { isDelete: false })
     .populate("project")
     .populate("axis")
@@ -237,6 +233,9 @@ const searchApartmentController = async (req, res) => {
     balconyDirection_id,
     bedrooms,
     axis_id,
+    key,
+    isDelete,
+    sale_price,
   } = req.body;
   const projection = {
     project: project_id,
@@ -246,6 +245,8 @@ const searchApartmentController = async (req, res) => {
     balcony_direction: balconyDirection_id,
     bedrooms: bedrooms,
     axis: axis_id,
+    isDelete,
+    sale_price,
   };
   const conditions = Object.keys(projection).reduce((result, key) => {
     if (projection[key]) {
@@ -253,6 +254,7 @@ const searchApartmentController = async (req, res) => {
     }
     return result;
   }, {});
+
   const findApartment = await Apartment.find(conditions)
     .populate("project")
     .populate("building")
@@ -260,8 +262,7 @@ const searchApartmentController = async (req, res) => {
     .populate("balcony_direction")
     .populate("furnished")
     .populate("axis")
-    .sort({ status: -1 })
-  //   .or([{ $and: [{ rental_price: { $gt: 0 } }] }]);
+    .sort({ status: -1 });
 
   res.json({ success: true, data: findApartment });
 };
@@ -284,21 +285,36 @@ const getAllKhoMua = async (req, res) => {
 };
 
 const getALlRequest = async (req, res) => {
-  const allApartmentRequest = await ApartmentUser.find({ isRequest: false }).populate({
+  const allApartmentRequest = await ApartmentUser.find({
+    isRequest: false,
+  }).populate({
     path: "apartment",
     options: { sort: { status: -1 } },
-    populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
-  })
+    populate: [
+      { path: "project" },
+      { path: "axis" },
+      { path: "building" },
+      { path: "properties" },
+      { path: "balcony_direction" },
+    ],
+  });
   res.json({ success: true, data: allApartmentRequest });
 };
 
 const getALlApprove = async (req, res) => {
-  console.log(req.body)
-  const allApartmentApprove =await ApartmentUser.find({ isRequest: true }).populate({
+  const allApartmentApprove = await ApartmentUser.find({
+    isRequest: true,
+  }).populate({
     path: "apartment",
     options: { sort: { status: -1 } },
-    populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
-  })
+    populate: [
+      { path: "project" },
+      { path: "axis" },
+      { path: "building" },
+      { path: "properties" },
+      { path: "balcony_direction" },
+    ],
+  });
   res.json({ success: true, data: allApartmentApprove });
 };
 const requestData = async (req, res) => {
@@ -314,18 +330,11 @@ const requestData = async (req, res) => {
 
   await newApartment.save();
 
-  const requestApartment = await Apartment.findByIdAndUpdate(
-    id,
-    { isRequest: true, isApprove: false },
-    { new: true }
-  );
-
   res.json({ success: true, message: "Căn hộ đã đã được yêu cầu " });
 };
 
 const approveData = async (req, res) => {
   const { id } = req.body;
-  console.log(id)
   const approveData = await ApartmentUser.findByIdAndUpdate(
     id,
     { isRequest: true },
@@ -341,13 +350,25 @@ const getApartmentApproveForUser = async (req, res) => {
     get = await ApartmentUser.find({ user: user, isRequest: true }).populate({
       path: "apartment",
       options: { sort: { status: 1 } },
-      populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
+      populate: [
+        { path: "project" },
+        { path: "axis" },
+        { path: "building" },
+        { path: "properties" },
+        { path: "balcony_direction" },
+      ],
     });
   } else {
-    get = await ApartmentUser.find({isRequest: true}).populate({
+    get = await ApartmentUser.find({ isRequest: true }).populate({
       path: "apartment",
       options: { sort: { status: 1 } },
-      populate: [{ path: "project" }, { path: "axis" }, { path: "building" }, { path: "properties" },{path: 'balcony_direction'}],
+      populate: [
+        { path: "project" },
+        { path: "axis" },
+        { path: "building" },
+        { path: "properties" },
+        { path: "balcony_direction" },
+      ],
     });
   }
   res.json({ success: true, data: get });
@@ -360,15 +381,23 @@ const changeStatusApartment = async (req, res) => {
       { status: status, color: "#ffffff" },
       { new: true }
     );
+    res.json({
+      success: true,
+      message: "Đã thay đổi trạng thái!",
+      data: findStatus,
+    });
   } else {
     const findStatus = await Apartment.findByIdAndUpdate(
       id,
       { status: status, color: "#bfbfbf" },
       { new: true }
     );
+    res.json({
+      success: true,
+      message: "Đã thay đổi trạng thái!",
+      data: findStatus,
+    });
   }
-
-  res.json({ success: true, message: "Đã thay đổi trạng thái!" });
 };
 
 const importExcelApartmentController = async (req, res) => {

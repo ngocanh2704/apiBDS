@@ -14,7 +14,6 @@ const createPropertyController = async (req,res) => {
     const newProperty = new Properties({
         property_name:property_name
     })
-    console.log(newProperty)
 
     await newProperty.save()
     res.json({success: true, message:"Trục căn hộ đã được tạo."})
@@ -42,7 +41,6 @@ const editPropertyController = async (req,res) => {
 const detailPropertyController =  async (req,res) => {
     const {id} = req.body
     const detail = await Properties.findById(id,{isDelete: false})
-    console.log(detail)
         res.json({success: true, property: detail})
 }
 

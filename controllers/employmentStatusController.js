@@ -34,7 +34,6 @@ const editEmploymentStatusController = async (req,res) => {
 
 const deleteEmploymentStatusController = async (req,res) => {
     const {id} = req.body
-    console.log(id)
     const deleteEmploymentStatus = await EmploymentStatus.findByIdAndDelete(id)
     res.json({success: true, message:"Tình trạng công việc đã được xoá."})
 }

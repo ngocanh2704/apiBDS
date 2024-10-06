@@ -2,7 +2,6 @@ const Furnished = require('../models/Furnished')
 
 const getAllFurnishedController = async (req,res) => {
     const allInvestor = await Furnished.find({isDelete: false})
-    console.log(allInvestor)
 res.json({success: true, data: allInvestor})
 }
 

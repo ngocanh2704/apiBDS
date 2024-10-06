@@ -18,7 +18,6 @@ router.post('/register',async (req,res)=>{
 
 
         const user =await Users.findOne({username})
-        console.log(user)
         if(user){
             return res.status(400).json({success: false, message:"User name đã tồn tại"})
         }
