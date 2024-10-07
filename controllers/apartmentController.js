@@ -340,7 +340,7 @@ const approveData = async (req, res) => {
     { isRequest: true },
     { new: true }
   );
-  res.json({ success: true, message: "Căn hộ đã đã được duyệt" });
+  res.json({ success: true,data:approveData, message: "Căn hộ đã đã được duyệt" });
 };
 
 const getApartmentApproveForUser = async (req, res) => {
