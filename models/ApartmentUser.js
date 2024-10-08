@@ -1,24 +1,23 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const ApartmentUserSchema = new Schema({
+const ApartmentUserSchema = new Schema(
+  {
     apartment: {
-        type: Schema.Types.ObjectId,
-        ref: 'apartment'
+      type: Schema.Types.ObjectId,
+      ref: "apartment",
     },
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
+      type: Schema.Types.ObjectId,
+      ref: "users",
     },
-    isRequest:{
-        type: Boolean,
-        default: false
+    isRequest: {
+      type: Boolean,
+      default: false,
     },
-    createAt: {
-        type: Date,
-        expires: '24h',
-        index: true,
-        default: Date.now
-    }
-})
-module.exports = mongoose.model('apartmentuser', ApartmentUserSchema)
+    // expireAt: { type: Date, default: Date.now, index: { expires: "2m" } },
+  },
+  { timestamps: true }
+);
+ApartmentUserSchema.index({ updatedAt: 1 }, { expireAfterSeconds: 5*60 });
+module.exports = mongoose.model("apartmentuser", ApartmentUserSchema);

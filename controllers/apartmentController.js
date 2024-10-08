@@ -25,7 +25,7 @@ const getAllApartmentController = async (req, res) => {
 const getAllKhoBan = async (req, res) => {
   const allApartmentSalePrice = await Apartment.find({
     isDelete: false,
-    sale_price: { '$gt': 0 },
+    sale_price: { $gt: 0 },
   })
     .populate("project")
     .populate("building")
@@ -320,7 +320,8 @@ const getALlApprove = async (req, res) => {
 const requestData = async (req, res) => {
   const { id, user } = req.body;
   var checkRequest = await ApartmentUser.find({ apartment: id, user: user });
-  if (checkRequest.length != 0) {
+  console.log(checkRequest.length);
+  if (checkRequest.length) {
     return res.json({ success: false, message: "Căn hộ yêu cầu đã tồn tại." });
   }
   const newApartment = new ApartmentUser({
@@ -340,7 +341,11 @@ const approveData = async (req, res) => {
     { isRequest: true },
     { new: true }
   );
-  res.json({ success: true,data:approveData, message: "Căn hộ đã đã được duyệt" });
+  res.json({
+    success: true,
+    data: approveData,
+    message: "Căn hộ đã đã được duyệt",
+  });
 };
 
 const getApartmentApproveForUser = async (req, res) => {
