@@ -19,5 +19,8 @@ const ApartmentUserSchema = new Schema(
   },
   { timestamps: true }
 );
-ApartmentUserSchema.index({ updatedAt: 1 }, { expireAfterSeconds: 24*60*60 });
+ApartmentUserSchema.index(
+  { updatedAt: 1 },
+  { expireAfterSeconds: 60 * 60 * 24 }
+);
 module.exports = mongoose.model("apartmentuser", ApartmentUserSchema);
