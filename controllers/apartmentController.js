@@ -28,7 +28,8 @@ const getAllApartmentController = async (req, res) => {
     .populate("furnished")
     .populate("axis")
     .skip(countSkip)
-    .limit(PAGE_SIZE).sort({rental_price: -1})
+    .limit(PAGE_SIZE)
+    .sort({ rental_price: -1 });
 
   var total_page = await Apartment.countDocuments();
   res.json({ success: true, data: allApartment, total_page: total_page });
@@ -247,7 +248,7 @@ const searchApartmentController = async (req, res) => {
     axis_id,
     key,
     isDelete,
-    sale_price,
+    price,
   } = req.body;
   const projection = {
     project: project_id,
@@ -258,7 +259,6 @@ const searchApartmentController = async (req, res) => {
     bedrooms: bedrooms,
     axis: axis_id,
     isDelete,
-    sale_price,
   };
   const conditions = Object.keys(projection).reduce((result, key) => {
     if (projection[key]) {
@@ -267,14 +267,28 @@ const searchApartmentController = async (req, res) => {
     return result;
   }, {});
 
-  const findApartment = await Apartment.find(conditions)
+  var statusPrice = { 1: 1, 2: -1, 3: 1, 4: -1 };
+  var findApartment = ''
+  if(price == 1 | price == 2) {
+    findApartment =  await Apartment.find(conditions)
     .populate("project")
     .populate("building")
     .populate("properties")
     .populate("balcony_direction")
     .populate("furnished")
     .populate("axis")
-    .sort({ status: -1 });
+    .sort({ status: -1, sale_price: statusPrice[price] });
+  } else {
+    findApartment =  await Apartment.find(conditions)
+    .populate("project")
+    .populate("building")
+    .populate("properties")
+    .populate("balcony_direction")
+    .populate("furnished")
+    .populate("axis")
+    .sort({ status: -1, rental_price: statusPrice[price] });
+  }
+
 
   res.json({ success: true, data: findApartment });
 };
