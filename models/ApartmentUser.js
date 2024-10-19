@@ -21,6 +21,6 @@ const ApartmentUserSchema = new Schema(
 );
 ApartmentUserSchema.index(
   { updatedAt: 1 },
-  { expireAfterSeconds: 60 * 60 * 24 }
+  { expireAfterSeconds: 60 * 60 * 12 }
 );
 module.exports = mongoose.model("apartmentuser", ApartmentUserSchema);
