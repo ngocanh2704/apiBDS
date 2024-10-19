@@ -268,27 +268,35 @@ const searchApartmentController = async (req, res) => {
   }, {});
 
   var statusPrice = { 1: 1, 2: -1, 3: 1, 4: -1 };
-  var findApartment = ''
-  if(price == 1 | price == 2) {
-    findApartment =  await Apartment.find(conditions)
-    .populate("project")
-    .populate("building")
-    .populate("properties")
-    .populate("balcony_direction")
-    .populate("furnished")
-    .populate("axis")
-    .sort({ status: -1, sale_price: statusPrice[price] });
+  var findApartment = "";
+  if ((price == 1) | (price == 2)) {
+    findApartment = await Apartment.find(conditions)
+      .populate("project")
+      .populate("building")
+      .populate("properties")
+      .populate("balcony_direction")
+      .populate("furnished")
+      .populate("axis")
+      .sort({ status: -1, sale_price: statusPrice[price] });
+  } else if ((price == 3) | (price == 4)) {
+    findApartment = await Apartment.find(conditions)
+      .populate("project")
+      .populate("building")
+      .populate("properties")
+      .populate("balcony_direction")
+      .populate("furnished")
+      .populate("axis")
+      .sort({ status: -1, rental_price: statusPrice[price] });
   } else {
-    findApartment =  await Apartment.find(conditions)
-    .populate("project")
-    .populate("building")
-    .populate("properties")
-    .populate("balcony_direction")
-    .populate("furnished")
-    .populate("axis")
-    .sort({ status: -1, rental_price: statusPrice[price] });
+    findApartment = await Apartment.find(conditions)
+      .populate("project")
+      .populate("building")
+      .populate("properties")
+      .populate("balcony_direction")
+      .populate("furnished")
+      .populate("axis")
+      .sort({ status: -1 });
   }
-
 
   res.json({ success: true, data: findApartment });
 };
