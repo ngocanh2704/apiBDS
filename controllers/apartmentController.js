@@ -11,15 +11,27 @@ const Properties = require("../models/Properties");
 const BalconyDirection = require("../models/BalconyDirection");
 const Furnished = require("../models/Furnished");
 
+const PAGE_SIZE = 20;
+
 const getAllApartmentController = async (req, res) => {
+  var page = req.query.page;
+  page = parseInt(page);
+  if (page < 1) {
+    page = 1;
+  }
+  var countSkip = (page - 1) * PAGE_SIZE;
   const allApartment = await Apartment.find({ isDelete: false })
     .populate("project")
     .populate("building")
     .populate("properties")
     .populate("balcony_direction")
     .populate("furnished")
-    .populate("axis");
-  res.json({ success: true, data: allApartment });
+    .populate("axis")
+    .skip(countSkip)
+    .limit(PAGE_SIZE).sort({rental_price: -1})
+
+  var total_page = await Apartment.countDocuments();
+  res.json({ success: true, data: allApartment, total_page: total_page });
 };
 
 const getAllKhoBan = async (req, res) => {

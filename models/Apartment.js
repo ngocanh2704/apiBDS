@@ -51,11 +51,11 @@ const ApartmentSchema = new Schema({
     require: true,
   },
   sale_price: {
-    type: String,
+    type: Number,
     require: true,
   },
   rental_price: {
-    type: String,
+    type: Number,
     require: true,
   },
   available_from: {
