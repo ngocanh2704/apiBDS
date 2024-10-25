@@ -238,7 +238,7 @@ const deleteImageController = async (req, res) => {
 };
 
 const searchApartmentController = async (req, res) => {
-  const {
+  var {
     project_id,
     building_id,
     furnished,
@@ -248,8 +248,16 @@ const searchApartmentController = async (req, res) => {
     axis_id,
     key,
     isDelete,
+    sale_price,
+    rental_price,
     price,
+    page
   } = req.body;
+  page = parseInt(page);
+  if (page < 1) {
+    page = 1;
+  }
+  var countSkip = (page - 1) * PAGE_SIZE;
   const projection = {
     project: project_id,
     building: building_id,
@@ -259,6 +267,8 @@ const searchApartmentController = async (req, res) => {
     bedrooms: bedrooms,
     axis: axis_id,
     isDelete,
+    sale_price: sale_price,
+    rental_price: rental_price
   };
   const conditions = Object.keys(projection).reduce((result, key) => {
     if (projection[key]) {
@@ -266,7 +276,7 @@ const searchApartmentController = async (req, res) => {
     }
     return result;
   }, {});
-
+ const total_page =  await Apartment.countDocuments(conditions);
   var statusPrice = { 1: 1, 2: -1, 3: 1, 4: -1 };
   var findApartment = "";
   if ((price == 1) | (price == 2)) {
@@ -277,6 +287,8 @@ const searchApartmentController = async (req, res) => {
       .populate("balcony_direction")
       .populate("furnished")
       .populate("axis")
+      .skip(countSkip)
+      .limit(PAGE_SIZE)
       .sort({ status: -1, sale_price: statusPrice[price] });
   } else if ((price == 3) | (price == 4)) {
     findApartment = await Apartment.find(conditions)
@@ -286,6 +298,8 @@ const searchApartmentController = async (req, res) => {
       .populate("balcony_direction")
       .populate("furnished")
       .populate("axis")
+      .skip(countSkip)
+      .limit(PAGE_SIZE)
       .sort({ status: -1, rental_price: statusPrice[price] });
   } else {
     findApartment = await Apartment.find(conditions)
@@ -295,10 +309,12 @@ const searchApartmentController = async (req, res) => {
       .populate("balcony_direction")
       .populate("furnished")
       .populate("axis")
+      .skip(countSkip)
+      .limit(PAGE_SIZE)
       .sort({ status: -1 });
   }
 
-  res.json({ success: true, data: findApartment });
+  res.json({ success: true, data: findApartment, total_page: total_page });
 };
 
 const getAllKhoMua = async (req, res) => {
