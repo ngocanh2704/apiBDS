@@ -11,7 +11,7 @@ const Properties = require("../models/Properties");
 const BalconyDirection = require("../models/BalconyDirection");
 const Furnished = require("../models/Furnished");
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 50;
 
 const getAllApartmentController = async (req, res) => {
   var page = req.query.page;
@@ -29,7 +29,7 @@ const getAllApartmentController = async (req, res) => {
     .populate("axis")
     .skip(countSkip)
     .limit(PAGE_SIZE)
-    .sort({ rental_price: -1 });
+    .sort({ status: -1 });
 
   var total_page = await Apartment.countDocuments();
   res.json({ success: true, data: allApartment, total_page: total_page });
@@ -251,7 +251,7 @@ const searchApartmentController = async (req, res) => {
     sale_price,
     rental_price,
     price,
-    page
+    page,
   } = req.body;
   page = parseInt(page);
   if (page < 1) {
@@ -268,7 +268,7 @@ const searchApartmentController = async (req, res) => {
     axis: axis_id,
     isDelete,
     sale_price: sale_price,
-    rental_price: rental_price
+    rental_price: rental_price,
   };
   const conditions = Object.keys(projection).reduce((result, key) => {
     if (projection[key]) {
@@ -276,7 +276,7 @@ const searchApartmentController = async (req, res) => {
     }
     return result;
   }, {});
- const total_page =  await Apartment.countDocuments(conditions);
+  const total_page = await Apartment.countDocuments(conditions);
   var statusPrice = { 1: 1, 2: -1, 3: 1, 4: -1 };
   var findApartment = "";
   if ((price == 1) | (price == 2)) {
@@ -613,6 +613,13 @@ const importExcelApartmentController = async (req, res) => {
   res.json({ success: true, message: "Dữ liệu đã được nhập", arrResult });
 };
 
+const removeReqAppController = async (req, res) => {
+  const { id } = req.body;
+  console.log(id)
+  const deleteStatus = await ApartmentUser.findByIdAndDelete(id);
+  res.json({ success: true, message: "Căn hộ đã được xoá." });
+};
+
 module.exports = {
   getAllApartmentController,
   createApartmentController,
@@ -631,4 +638,5 @@ module.exports = {
   getApartmentApproveForUser,
   changeStatusApartment,
   importExcelApartmentController,
+  removeReqAppController,
 };
