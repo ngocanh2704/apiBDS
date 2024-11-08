@@ -276,11 +276,13 @@ const searchApartmentController = async (req, res) => {
     }
     return result;
   }, {});
-  const total_page = await Apartment.countDocuments(conditions);
+  // const total_page = await Apartment.countDocuments(conditions);
+  var total_page = null;
   var statusPrice = { 1: 1, 2: -1, 3: 1, 4: -1 };
   var findApartment = "";
   if ((price == 1) | (price == 2)) {
-    findApartment = await Apartment.find(conditions)
+    total_page = await Apartment.countDocuments({isDelete: false, sale_price: {$gt: 0}})
+    findApartment = await Apartment.find({isDelete: false, sale_price: {$gt: 0}})
       .populate("project")
       .populate("building")
       .populate("properties")
@@ -291,7 +293,8 @@ const searchApartmentController = async (req, res) => {
       .limit(PAGE_SIZE)
       .sort({ status: -1, sale_price: statusPrice[price] });
   } else if ((price == 3) | (price == 4)) {
-    findApartment = await Apartment.find(conditions)
+    total_page = await Apartment.countDocuments({isDelete: false, rental_price: {$gt: 0}})
+    findApartment = await Apartment.find({isDelete: false, rental_price: {$gt: 0}})
       .populate("project")
       .populate("building")
       .populate("properties")
@@ -302,6 +305,7 @@ const searchApartmentController = async (req, res) => {
       .limit(PAGE_SIZE)
       .sort({ status: -1, rental_price: statusPrice[price] });
   } else {
+    total_page = await Apartment.countDocuments(conditions)
     findApartment = await Apartment.find(conditions)
       .populate("project")
       .populate("building")
