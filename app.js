@@ -39,6 +39,7 @@ var apartmentRouter = require("./routes/aprtment");
 var imageRouter = require("./routes/image");
 var loginRouter = require("./routes/login");
 var furnishedRouter = require("./routes/furnished");
+var customerRouter = require("./routes/customer");
 
 const corsOpts = {
   origin: "*",
@@ -186,6 +187,9 @@ app.use("/image/edit", imageRouter);
 app.use("/image/delete", imageRouter);
 app.use("/image/deleteImage", imageRouter);
 app.use("/image/addImage", imageRouter);
+
+app.use("/customer", customerRouter);
+app.use("/customer/create", customerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
