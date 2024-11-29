@@ -313,16 +313,19 @@ const searchApartmentController = async (req, res) => {
       isDelete: false,
       sale_price: { $gt: 0 },
     });
-    findApartment = await Apartment.find({
-      isDelete: false,
-      sale_price: { $gt: 0 },
-    })
+    findApartment = await Apartment.find(conditions)
       .populate("project")
       .populate("building")
       .populate("properties")
       .populate("balcony_direction")
       .populate("furnished")
       .populate("axis")
+      .populate({
+        path: "user_id",
+        populate: [
+          { path: "employee_ID" }
+        ],
+      })
       .skip(countSkip)
       .limit(PAGE_SIZE)
       .sort({ status: -1, sale_price: statusPrice[price] });
@@ -331,16 +334,19 @@ const searchApartmentController = async (req, res) => {
       isDelete: false,
       rental_price: { $gt: 0 },
     });
-    findApartment = await Apartment.find({
-      isDelete: false,
-      rental_price: { $gt: 0 },
-    })
+    findApartment = await Apartment.find(conditions)
       .populate("project")
       .populate("building")
       .populate("properties")
       .populate("balcony_direction")
       .populate("furnished")
       .populate("axis")
+      .populate({
+        path: "user_id",
+        populate: [
+          { path: "employee_ID" }
+        ],
+      })
       .skip(countSkip)
       .limit(PAGE_SIZE)
       .sort({ status: -1, rental_price: statusPrice[price] });
@@ -353,6 +359,12 @@ const searchApartmentController = async (req, res) => {
       .populate("balcony_direction")
       .populate("furnished")
       .populate("axis")
+      .populate({
+      path: "user_id",
+      populate: [
+        { path: "employee_ID" }
+      ],
+    })
       .skip(countSkip)
       .limit(PAGE_SIZE)
       .sort({ status: -1 });
