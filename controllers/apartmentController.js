@@ -200,6 +200,12 @@ const editApartmentController = async (req, res) => {
     .populate("balcony_direction")
     .populate("furnished")
     .populate("axis")
+    .populate({
+      path: "user_id",
+      populate: [
+        { path: "employee_ID" }
+      ],
+    })
   res.json({ success: true, message: "Căn hộ đã được sửa.", data: findApartment });
 };
 
