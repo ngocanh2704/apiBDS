@@ -27,12 +27,18 @@ const getAllApartmentController = async (req, res) => {
     .populate("balcony_direction")
     .populate("furnished")
     .populate("axis")
+    .populate({
+      path: "user_id",
+      populate: [
+        { path: "employee_ID" }
+      ],
+    })
     .skip(countSkip)
     .limit(PAGE_SIZE)
     .sort({ status: -1 });
 
   var total_page = await Apartment.countDocuments();
-  res.json({ success: true, data: allApartment, total_page: total_page });
+  res.json({ success: true, data: allApartment, total_page: total_page, page });
 };
 
 const getAllKhoBan = async (req, res) => {
@@ -46,8 +52,6 @@ const getAllKhoBan = async (req, res) => {
     .populate("balcony_direction")
     .populate("furnished")
     .populate("axis");
-
-  console.log(allApartmentSalePrice.length);
 
   res.json({ success: true, data: allApartmentSalePrice });
 };
@@ -113,8 +117,16 @@ const createApartmentController = async (req, res) => {
     color: color,
   });
 
-  await newApartment.save();
-  res.json({ success: true, message: "Căn hộ đã được tạo." });
+  const newApartmentAll = await newApartment.save();
+  const findApartment  = await Apartment.findById(newApartmentAll._id)
+    .populate("project")
+    .populate("building")
+    .populate("properties")
+    .populate("balcony_direction")
+    .populate("furnished")
+    .populate("axis");
+  
+  res.json({ success: true, message: "Căn hộ đã được tạo.", data: findApartment});
 };
 
 const deleteApartmentController = async (req, res) => {
@@ -148,6 +160,7 @@ const editApartmentController = async (req, res) => {
     area,
     furnished,
     color,
+    user
   } = req.body;
 
   const editApartment = await Apartment.findByIdAndUpdate(
@@ -175,10 +188,19 @@ const editApartmentController = async (req, res) => {
       status: status,
       notes: notes,
       color: color,
+      user_id:user
     },
     { new: true }
   );
-  res.json({ success: true, message: "Căn hộ đã được sửa." });
+
+  const findApartment  = await Apartment.findById(id)
+    .populate("project")
+    .populate("building")
+    .populate("properties")
+    .populate("balcony_direction")
+    .populate("furnished")
+    .populate("axis")
+  res.json({ success: true, message: "Căn hộ đã được sửa.", data: findApartment });
 };
 
 const detailApartmentController = async (req, res) => {
@@ -281,8 +303,14 @@ const searchApartmentController = async (req, res) => {
   var statusPrice = { 1: 1, 2: -1, 3: 1, 4: -1 };
   var findApartment = "";
   if ((price == 1) | (price == 2)) {
-    total_page = await Apartment.countDocuments({isDelete: false, sale_price: {$gt: 0}})
-    findApartment = await Apartment.find({isDelete: false, sale_price: {$gt: 0}})
+    total_page = await Apartment.countDocuments({
+      isDelete: false,
+      sale_price: { $gt: 0 },
+    });
+    findApartment = await Apartment.find({
+      isDelete: false,
+      sale_price: { $gt: 0 },
+    })
       .populate("project")
       .populate("building")
       .populate("properties")
@@ -293,8 +321,14 @@ const searchApartmentController = async (req, res) => {
       .limit(PAGE_SIZE)
       .sort({ status: -1, sale_price: statusPrice[price] });
   } else if ((price == 3) | (price == 4)) {
-    total_page = await Apartment.countDocuments({isDelete: false, rental_price: {$gt: 0}})
-    findApartment = await Apartment.find({isDelete: false, rental_price: {$gt: 0}})
+    total_page = await Apartment.countDocuments({
+      isDelete: false,
+      rental_price: { $gt: 0 },
+    });
+    findApartment = await Apartment.find({
+      isDelete: false,
+      rental_price: { $gt: 0 },
+    })
       .populate("project")
       .populate("building")
       .populate("properties")
@@ -305,7 +339,7 @@ const searchApartmentController = async (req, res) => {
       .limit(PAGE_SIZE)
       .sort({ status: -1, rental_price: statusPrice[price] });
   } else {
-    total_page = await Apartment.countDocuments(conditions)
+    total_page = await Apartment.countDocuments(conditions);
     findApartment = await Apartment.find(conditions)
       .populate("project")
       .populate("building")
@@ -318,7 +352,12 @@ const searchApartmentController = async (req, res) => {
       .sort({ status: -1 });
   }
 
-  res.json({ success: true, data: findApartment, total_page: total_page });
+  res.json({
+    success: true,
+    data: findApartment,
+    total_page: total_page,
+    page,
+  });
 };
 
 const getAllKhoMua = async (req, res) => {
@@ -374,7 +413,6 @@ const getALlApprove = async (req, res) => {
 const requestData = async (req, res) => {
   const { id, user } = req.body;
   var checkRequest = await ApartmentUser.find({ apartment: id, user: user });
-  console.log(checkRequest.length);
   if (checkRequest.length) {
     return res.json({ success: false, message: "Căn hộ yêu cầu đã tồn tại." });
   }
@@ -619,7 +657,6 @@ const importExcelApartmentController = async (req, res) => {
 
 const removeReqAppController = async (req, res) => {
   const { id } = req.body;
-  console.log(id)
   const deleteStatus = await ApartmentUser.findByIdAndDelete(id);
   res.json({ success: true, message: "Căn hộ đã được xoá." });
 };

@@ -190,6 +190,7 @@ app.use("/image/addImage", imageRouter);
 
 app.use("/customer", customerRouter);
 app.use("/customer/create", customerRouter);
+app.use("/customer/delete", customerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

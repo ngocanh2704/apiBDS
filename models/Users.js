@@ -35,6 +35,6 @@ const UsersSchema = new Schema({
         type: String,
         require: true
     }
-})
+},{timestamps: true})
 // UsersSchema.index({username:1})
 module.exports = mongoose.model('users', UsersSchema)

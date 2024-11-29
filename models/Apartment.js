@@ -16,7 +16,7 @@ const ApartmentSchema = new Schema({
   },
   user_id: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "users",
   },
   project: {
     type: Schema.Types.ObjectId,
@@ -94,14 +94,14 @@ const ApartmentSchema = new Schema({
     type: String,
     require: true,
   },
-  createAt: {
-    type: String,
-    require: true,
-  },
-  UpdateAt: {
-    type: String,
-    require: true,
-  },
+  // createAt: {
+  //   type: String,
+  //   require: true,
+  // },
+  // UpdateAt: {
+  //   type: String,
+  //   require: true,
+  // },
   isDelete: {
     type: Boolean,
     default: false,
@@ -118,14 +118,12 @@ const ApartmentSchema = new Schema({
     type: Array,
     require: true,
   },
-  user_approve: {
-    type: Array,
-    reuquire: true,
-  },
   color: {
     type: String,
     require: "#ffffff",
   },
-});
+},
+{ timestamps: true }
+);
 
 module.exports = mongoose.model("apartment", ApartmentSchema);
