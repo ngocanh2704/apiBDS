@@ -3,18 +3,22 @@ const Customer = require("../models/Customers");
 const getCustomerController = async (req, res) => {
   const customers = await Customer.aggregate([
     {
-      $group: {
-        _id: '$_id',
-        name: {"$first":'$name'},
-        phone_number: {'$first':'$phone_number'},
-        apartment_name:  {'$first':'$phone_number'},
-        status:  {'$first':'$status'},
-        day_sign:  {'$first':'$day_sign'},
-        bod:  {'$first':'$bod'},
-        note:  {'$first':'$note'},
+      $group: { _id:{ name: '$name', _id:'$_id',},
+        // _id: {name :'$name', bod: '$bod'},
+        // _id: {name: '$name',status: '$status'},
+        name: {'$first':'$name'},
+        // phone_number: {'$first':'$phone_number'},
+        // apartment_name:  {'$first':'$phone_number'},
+        // status:  {'$first':'$status'},
+        // day_sign:  {'$first':'$day_sign'},
+        // bod:  {'$first':'$bod'},
+        // note:  {'$first':'$note'},
       },
     },
   ]);
+
+  // const customers = await Customer.find()
+
   res.json({ success: true, data: customers });
 };
 

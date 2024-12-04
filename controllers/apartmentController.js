@@ -10,6 +10,8 @@ const Axis = require("../models/Axis");
 const Properties = require("../models/Properties");
 const BalconyDirection = require("../models/BalconyDirection");
 const Furnished = require("../models/Furnished");
+var jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const PAGE_SIZE = 50;
 
@@ -29,16 +31,16 @@ const getAllApartmentController = async (req, res) => {
     .populate("axis")
     .populate({
       path: "user_id",
-      populate: [
-        { path: "employee_ID" }
-      ],
+      populate: [{ path: "employee_ID" }],
     })
     .skip(countSkip)
     .limit(PAGE_SIZE)
     .sort({ status: -1 });
 
   var total_page = await Apartment.countDocuments();
-  res.json({ success: true, data: allApartment, total_page: total_page, page });
+  var data2 = (jwt.sign({ success: true, data: allApartment, total_page: total_page, page }, process.env.ACCESS_TOKEN_SECRET))
+  const data = Buffer.from(JSON.stringify(data2)).toString("base64");
+  res.json(data);
 };
 
 const getAllKhoBan = async (req, res) => {
@@ -118,21 +120,29 @@ const createApartmentController = async (req, res) => {
   });
 
   const newApartmentAll = await newApartment.save();
-  const findApartment  = await Apartment.findById(newApartmentAll._id)
+  const findApartment = await Apartment.findById(newApartmentAll._id)
     .populate("project")
     .populate("building")
     .populate("properties")
     .populate("balcony_direction")
     .populate("furnished")
     .populate("axis");
-  
-  res.json({ success: true, message: "Căn hộ đã được tạo.", data: findApartment});
+
+  res.json({
+    success: true,
+    message: "Căn hộ đã được tạo.",
+    data: findApartment,
+  });
 };
 
 const deleteApartmentController = async (req, res) => {
   const { id } = req.body;
+  const checkApartmentUser = await ApartmentUser.find({ user: id });
+  if (checkApartmentUser.length > 0) {
+    return res.json({ success: false, message: "Căn hộ đã được yêu cầu." });
+  }
   const deleteStatus = await Apartment.findByIdAndDelete(id);
-  res.json({ success: true, message: "Căn hộ đã được xoá." });
+  return res.json({ success: true, message: "Căn hộ đã được xoá." });
 };
 
 const editApartmentController = async (req, res) => {
@@ -160,7 +170,7 @@ const editApartmentController = async (req, res) => {
     area,
     furnished,
     color,
-    user
+    user,
   } = req.body;
 
   const editApartment = await Apartment.findByIdAndUpdate(
@@ -188,12 +198,12 @@ const editApartmentController = async (req, res) => {
       status: status,
       notes: notes,
       color: color,
-      user_id:user
+      user_id: user,
     },
     { new: true }
   );
 
-  const findApartment  = await Apartment.findById(id)
+  const findApartment = await Apartment.findById(id)
     .populate("project")
     .populate("building")
     .populate("properties")
@@ -202,11 +212,13 @@ const editApartmentController = async (req, res) => {
     .populate("axis")
     .populate({
       path: "user_id",
-      populate: [
-        { path: "employee_ID" }
-      ],
-    })
-  res.json({ success: true, message: "Căn hộ đã được sửa.", data: findApartment });
+      populate: [{ path: "employee_ID" }],
+    });
+  res.json({
+    success: true,
+    message: "Căn hộ đã được sửa.",
+    data: findApartment,
+  });
 };
 
 const detailApartmentController = async (req, res) => {
@@ -322,9 +334,7 @@ const searchApartmentController = async (req, res) => {
       .populate("axis")
       .populate({
         path: "user_id",
-        populate: [
-          { path: "employee_ID" }
-        ],
+        populate: [{ path: "employee_ID" }],
       })
       .skip(countSkip)
       .limit(PAGE_SIZE)
@@ -343,9 +353,7 @@ const searchApartmentController = async (req, res) => {
       .populate("axis")
       .populate({
         path: "user_id",
-        populate: [
-          { path: "employee_ID" }
-        ],
+        populate: [{ path: "employee_ID" }],
       })
       .skip(countSkip)
       .limit(PAGE_SIZE)
@@ -360,11 +368,9 @@ const searchApartmentController = async (req, res) => {
       .populate("furnished")
       .populate("axis")
       .populate({
-      path: "user_id",
-      populate: [
-        { path: "employee_ID" }
-      ],
-    })
+        path: "user_id",
+        populate: [{ path: "employee_ID" }],
+      })
       .skip(countSkip)
       .limit(PAGE_SIZE)
       .sort({ status: -1 });

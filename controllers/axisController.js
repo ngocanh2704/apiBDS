@@ -4,11 +4,13 @@ const Status = require("../models/Status")
 
 const getAllAxisController = async (req,res) => {
     const allInvestor = await Axis.find({isDelete: false})
-res.json({success: true, data: allInvestor})
+    const data = Buffer.from(JSON.stringify({success: true, data: allInvestor})).toString("base64");
+res.json(data)
 }
 
 const createAxisController = async (req,res) => {
-    const {axis_name} = req.body
+    var values = (JSON.parse(Buffer.from(req.body.values, "base64").toString("utf-8")))
+    const axis_name = values.axis_name
     const axisName = await Axis.findOne({axis_name: axis_name})
     if(axisName)
         return res.status(400).json({success: false, message: "Tên trục căn hộ đã tồn tại."})
@@ -28,7 +30,9 @@ const deleteAxisController = async (req,res) => {
 }
 
 const editAxisController = async (req,res) => {
-    const {id, axis_name} = req.body
+    var values = (JSON.parse(Buffer.from(req.body.values, "base64").toString("utf-8")))
+    const axis_name = values.axis_name
+    const id = values.id
     const axisName = await Axis.findOne({axis_name: axis_name})
     if(axisName){
         return res.status(400).json({success: false, message: "Trục căn hộ đã tồn tại vui lòng tạo trục căn hộ khác."})
