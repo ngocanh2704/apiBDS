@@ -415,7 +415,7 @@ const getALlRequest = async (req, res) => {
       { path: "balcony_direction" },
     ],
   });
-  arr = allApartmentApprove.filter(function (item) {
+ var arr = allApartmentApprove.filter(function (item) {
     return item.apartment !== null
   })
   res.json({ success: true, data: arr });
@@ -435,7 +435,7 @@ const getALlApprove = async (req, res) => {
       { path: "balcony_direction" },
     ],
   });
-  arr = allApartmentApprove.filter(function (item) {
+  var arr = allApartmentApprove.filter(function (item) {
     return item.apartment !== null
   })
   res.json({ success: true, data: arr });
