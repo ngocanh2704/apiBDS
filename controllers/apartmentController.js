@@ -403,7 +403,7 @@ const getAllKhoMua = async (req, res) => {
 
 const getALlRequest = async (req, res) => {
   const allApartmentRequest = await ApartmentUser.find({
-    isRequest: false,
+    isRequest: false, apartment: { $ne: null }
   }).populate({
     path: "apartment",
     options: { sort: { status: -1 } },
@@ -420,7 +420,7 @@ const getALlRequest = async (req, res) => {
 
 const getALlApprove = async (req, res) => {
   const allApartmentApprove = await ApartmentUser.find({
-    isRequest: true,
+    isRequest: true, apartment: { $ne: null }
   }).populate({
     path: "apartment",
     options: { sort: { status: -1 } },
