@@ -403,7 +403,7 @@ const getAllKhoMua = async (req, res) => {
 
 const getALlRequest = async (req, res) => {
   const allApartmentRequest = await ApartmentUser.find({
-    isRequest: false, apartment: {  $exists: true }
+    isRequest: false,
   }).populate({
     path: "apartment",
     options: { sort: { status: -1 } },
@@ -415,12 +415,15 @@ const getALlRequest = async (req, res) => {
       { path: "balcony_direction" },
     ],
   });
-  res.json({ success: true, data: allApartmentRequest });
+  arr = allApartmentApprove.filter(function (item) {
+    return item.apartment !== null
+  })
+  res.json({ success: true, data: arr });
 };
 
 const getALlApprove = async (req, res) => {
   const allApartmentApprove = await ApartmentUser.find({
-    isRequest: true, apartment: {  $exists: true }
+    isRequest: true,
   }).populate({
     path: "apartment",
     options: { sort: { status: -1 } },
@@ -432,7 +435,10 @@ const getALlApprove = async (req, res) => {
       { path: "balcony_direction" },
     ],
   });
-  res.json({ success: true, data: allApartmentApprove });
+  arr = allApartmentApprove.filter(function (item) {
+    return item.apartment !== null
+  })
+  res.json({ success: true, data: arr });
 };
 const requestData = async (req, res) => {
   const { id, user } = req.body;
