@@ -38,7 +38,10 @@ const getAllApartmentController = async (req, res) => {
     .sort({ status: -1 });
 
   var total_page = await Apartment.countDocuments();
-  var data2 = (jwt.sign({ success: true, data: allApartment, total_page: total_page, page }, process.env.ACCESS_TOKEN_SECRET))
+  var data2 = jwt.sign(
+    { success: true, data: allApartment, total_page: total_page, page },
+    process.env.ACCESS_TOKEN_SECRET
+  );
   const data = Buffer.from(JSON.stringify(data2)).toString("base64");
   res.json(data);
 };
@@ -415,9 +418,9 @@ const getALlRequest = async (req, res) => {
       { path: "balcony_direction" },
     ],
   });
- var arr = allApartmentRequest.filter(function (item) {
-    return item.apartment !== null
-  })
+  var arr = allApartmentRequest.filter(function (item) {
+    return item.apartment !== null;
+  });
   res.json({ success: true, data: arr });
 };
 
@@ -436,8 +439,8 @@ const getALlApprove = async (req, res) => {
     ],
   });
   var arr = allApartmentApprove.filter(function (item) {
-    return item.apartment !== null
-  })
+    return item.apartment !== null;
+  });
   res.json({ success: true, data: arr });
 };
 const requestData = async (req, res) => {
@@ -661,13 +664,14 @@ const importExcelApartmentController = async (req, res) => {
     };
 
     if (checkApartment) {
+      await Apartment.findByIdAndUpdate(checkApartment._id, { values });
       values.building = element.building_name;
       values.project = element.project_name;
       values.axis = element.axis_name;
       values.properties = element.property_name;
       values.furnished = element.furnished_name;
       values.balcony_direction = element.balcony_direction_name;
-      values.result = "Đã có trong dữ liệu";
+      values.result = "Dữ liệu đã được sửa";
       arrResult.push(values);
     } else {
       const newApartment = new Apartment(values);
