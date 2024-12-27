@@ -20,6 +20,8 @@ const getAllApartmentController = async (req, res) => {
   page = parseInt(page);
   if (page < 1) {
     page = 1;
+  } else if (isNaN(page) == true) {
+    page = 1
   }
   var countSkip = (page - 1) * PAGE_SIZE;
   const allApartment = await Apartment.find({ isDelete: false })
@@ -37,7 +39,7 @@ const getAllApartmentController = async (req, res) => {
     .limit(PAGE_SIZE)
     .sort({ status: -1 });
 
-  var total_page = await Apartment.countDocuments();
+  var total_page = await Apartment.countDocuments({ isDelete: false });
   var data2 = jwt.sign(
     { success: true, data: allApartment, total_page: total_page, page },
     process.env.ACCESS_TOKEN_SECRET
