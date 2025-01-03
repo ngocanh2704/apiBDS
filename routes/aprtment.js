@@ -1,5 +1,5 @@
 var express = require('express')
-const { getAllApartmentController, createApartmentController,getApartmentApproveForUser ,deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController, getAllKhoMua, getALlRequest, getAllKhoBan, getALlApprove, requestData, approveData, changeStatusApartment, importExcelApartmentController, removeReqAppController } = require('../controllers/apartmentController')
+const { getAllApartmentController, createApartmentController,getApartmentApproveForUser ,deleteApartmentController, editApartmentController, detailApartmentController, uploadImageController, deleteImageController, searchApartmentController, getAllKhoMua, getALlRequest, getAllKhoBan, getALlApprove, requestData, approveData, changeStatusApartment, importExcelApartmentController, removeReqAppController, exportExcelApartmentController } = require('../controllers/apartmentController')
 var router = express.Router()
 
 // @route GET investor
@@ -35,5 +35,9 @@ router.post('/change-status', changeStatusApartment)
 
 router.post('/import-excel', importExcelApartmentController)
 router.post('/remove-request-approve', removeReqAppController)
+
+// @route POST export excel apartment
+// @desc Export excel apartment
+router.post('/export-excel-apartment', exportExcelApartmentController)
 
 module.exports = router

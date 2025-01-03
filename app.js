@@ -180,6 +180,7 @@ app.use("/apartment/approve-user", apartmentRouter);
 app.use("/apartment/change-status", apartmentRouter);
 app.use("/apartment/import-excel", apartmentRouter);
 app.use("/apartment/remove-request-approve", apartmentRouter);
+app.use("/apartment/export-excel-apartment", apartmentRouter);
 
 app.use("/image", imageRouter);
 app.use("/image/create", imageRouter);

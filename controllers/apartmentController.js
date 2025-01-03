@@ -11,20 +11,16 @@ const Properties = require("../models/Properties");
 const BalconyDirection = require("../models/BalconyDirection");
 const Furnished = require("../models/Furnished");
 var jwt = require("jsonwebtoken");
+const CryptoJS = require('crypto-js');
 require("dotenv").config();
 
 const PAGE_SIZE = 50;
 
 const getAllApartmentController = async (req, res) => {
-  var page = req.query.page;
-  page = parseInt(page);
-  if (page < 1) {
-    page = 1;
-  } else if (isNaN(page) == true) {
-    page = 1
-  }
-  var countSkip = (page - 1) * PAGE_SIZE;
-  const allApartment = await Apartment.find({ isDelete: false })
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 50;
+  const skip = (page - 1) * limit;
+  const allApartment = await Apartment.find()
     .populate("project")
     .populate("building")
     .populate("properties")
@@ -35,17 +31,16 @@ const getAllApartmentController = async (req, res) => {
       path: "user_id",
       populate: [{ path: "employee_ID" }],
     })
-    .skip(countSkip)
-    .limit(PAGE_SIZE)
-    .sort({ status: -1 });
-
-  var total_page = await Apartment.countDocuments({ isDelete: false });
-  var data2 = jwt.sign(
-    { success: true, data: allApartment, total_page: total_page, page },
+    .sort({ status: -1, _id: -1 })
+    .skip(skip)
+    .limit(limit)
+  var total_page = await Apartment.countDocuments();
+  //Mã hoá dữ liệu
+  const encryptedData = CryptoJS.AES.encrypt(
+    JSON.stringify(allApartment),
     process.env.ACCESS_TOKEN_SECRET
-  );
-  const data = Buffer.from(JSON.stringify(data2)).toString("base64");
-  res.json(data);
+  ).toString();
+  res.json({ success: true, data: encryptedData, total_page: total_page, page });
 };
 
 const getAllKhoBan = async (req, res) => {
@@ -697,6 +692,31 @@ const removeReqAppController = async (req, res) => {
   res.json({ success: true, message: "Căn hộ đã được xoá." });
 };
 
+const exportExcelApartmentController = async (req, res) => {
+  const { data } = req.body;
+  // const { data } = req.body;
+  // var ws = XLSX.utils.json_to_sheet(data);
+  // var wb = XLSX.utils.book_new();
+  // XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  // XLSX.writeFile(wb, "apartment.xlsx");
+  // res.json({ success: true, message: "Đã xuất file excel" });
+  try {
+    const apartments = await Apartment.find({ _id: { $in: data } }).populate("project", 'project_name')
+      .populate("building", 'building_name')
+      .populate("properties", 'property_name')
+      .populate("balcony_direction", "balcony_direction_name")
+      .populate("furnished", 'furnished_name')
+      .populate("axis", 'axis_name');
+    const encryptedData = CryptoJS.AES.encrypt(
+      JSON.stringify(apartments),
+      process.env.ACCESS_TOKEN_SECRET
+    ).toString();
+    res.json({ success: true, message: "Found apartments", apartment: encryptedData });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error finding apartments", error });
+  }
+}
+
 module.exports = {
   getAllApartmentController,
   createApartmentController,
@@ -716,4 +736,5 @@ module.exports = {
   changeStatusApartment,
   importExcelApartmentController,
   removeReqAppController,
+  exportExcelApartmentController,
 };
